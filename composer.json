@@ -7,5 +7,6 @@
         "psr-0": { "": "src/" }
     },
     "require": {
+        "league/flysystem": "^1.0"
     }
 }
