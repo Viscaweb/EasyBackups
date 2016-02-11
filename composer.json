@@ -1,0 +1,11 @@
+{
+    "name": "viscaweb/easybackups",
+    "license": "MIT",
+    "type": "proprietary",
+    "description": "Easy Backups",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+    }
+}
