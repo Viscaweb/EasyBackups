@@ -2,6 +2,8 @@
 
 namespace Dumper\Database;
 
+use FileSystem\File;
+
 interface DatabaseDumper
 {
 
@@ -10,7 +12,7 @@ interface DatabaseDumper
      *
      * @param DatabaseSettings $settings
      *
-     * @return string[]
+     * @return File[]
      */
     public function dump(DatabaseSettings $settings);
 

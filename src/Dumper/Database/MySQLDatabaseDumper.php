@@ -2,6 +2,8 @@
 
 namespace Dumper\Database;
 
+use FileSystem\File;
+
 /**
  * Class MySQLDatabaseDumper
  */
@@ -13,7 +15,7 @@ class MySQLDatabaseDumper implements DatabaseDumper
      *
      * @param DatabaseSettings $settings
      *
-     * @return string[]
+     * @return File[]
      */
     public function dump(DatabaseSettings $settings)
     {
@@ -26,7 +28,8 @@ class MySQLDatabaseDumper implements DatabaseDumper
         shell_exec($dumpCommand);
 
         if (file_exists($dumpLocation) && filesize($dumpLocation) > 0){
-            return [$dumpLocation];
+            $dumpFile = new File($dumpLocation);
+            return [$dumpFile];
         }
 
         return [];
