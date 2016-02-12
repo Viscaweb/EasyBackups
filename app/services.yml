@@ -1,0 +1,3 @@
+services:
+    dumper.database.mysql:
+        class: Dumper\Database\MySQLDatabaseDumper

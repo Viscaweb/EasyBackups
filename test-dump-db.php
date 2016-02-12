@@ -1,4 +1,5 @@
 <?php
+use Dumper\Database\DatabaseDumper;
 use League\Flysystem\Adapter\Local;
 use FileSystem\File;
 require 'vendor/autoload.php';
@@ -11,6 +12,20 @@ $dbPort = 3306;
 $exportTo = sys_get_temp_dir();
 
 /*
+ * Load services
+ */
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+
+$container = new ContainerBuilder();
+$loader = new YamlFileLoader($container, new FileLocator(__DIR__));
+$loader->load(__DIR__.'/app/services.yml');
+
+/** @var DatabaseDumper $dumper */
+$dumper = $container->get('dumper.database.mysql');
+
+/*
  * Dump the database
  */
 $dbSettings = new \Dumper\Database\DatabaseSettings(
@@ -21,9 +36,7 @@ $dbSettings = new \Dumper\Database\DatabaseSettings(
     $dbPort
 );
 
-$mysqlDumper = new \Dumper\Database\MySQLDatabaseDumper();
-
-$filesToDump = $mysqlDumper->dump($dbSettings);
+$filesToDump = $dumper->dump($dbSettings);
 
 /*
  * Compress the files
