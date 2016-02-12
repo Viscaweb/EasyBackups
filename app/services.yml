@@ -2,6 +2,9 @@ services:
     chain.compressor:
         class: Compilation\Chain\CompressorChain
 
+    chain.saver:
+        class: Compilation\Chain\SaverChain
+
     chain.dumper.database:
         class: Compilation\Chain\DatabaseDumperChain
 
@@ -9,8 +12,12 @@ services:
         class: Dumper\Database\MySQLDatabaseDumper
         tags:
             - { name: dumper.database, alias: 'mysql' }
-
     compressor.tar_xz:
         class: Compressor\TarXzCompressor
         tags:
             - { name: compressor, alias: 'tar_xz' }
+
+    saver.file_system:
+        class: Saver\FileSystemSaver
+        tags:
+            - { name: saver, alias: 'file_system' }
