@@ -1,7 +1,7 @@
 <?php
 namespace Compressor;
 
-use FileSystem\File;
+use Models\File;
 
 /**
  * Class TarXzCompressor

@@ -1,7 +1,7 @@
 <?php
 namespace Saver;
 
-use FileSystem\File;
+use Models\File;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Saver\Exceptions\CanNotSavedException;

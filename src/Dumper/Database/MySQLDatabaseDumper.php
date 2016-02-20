@@ -2,7 +2,7 @@
 
 namespace Dumper\Database;
 
-use FileSystem\File;
+use Models\File;
 
 /**
  * Class MySQLDatabaseDumper

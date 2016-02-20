@@ -2,7 +2,7 @@
 
 namespace Saver;
 
-use FileSystem\File;
+use Models\File;
 use Saver\Exceptions\CanNotSavedException;
 
 interface Saver

@@ -1,5 +1,5 @@
 <?php
-namespace Compilation\Chain;
+namespace DependencyInjection\Chain;
 
 use Dumper\Database\DatabaseDumper;
 

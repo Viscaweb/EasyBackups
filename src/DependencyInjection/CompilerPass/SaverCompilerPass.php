@@ -1,30 +1,30 @@
 <?php
 
-namespace Compilation\CompilerPass;
+namespace DependencyInjection\CompilerPass;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class DatabaseDumperCompilerPass
+ * Class SaverCompilerPass
  */
-class DatabaseDumperCompilerPass implements CompilerPassInterface
+class SaverCompilerPass implements CompilerPassInterface
 {
 
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has('chain.dumper.database')) {
+        if (!$container->has('chain.saver')){
             return;
         }
 
-        $chain = $container->findDefinition('chain.dumper.database');
+        $chain = $container->findDefinition('chain.saver');
 
-        $taggedDatabasesDumper = $container->findTaggedServiceIds('dumper.database');
-        foreach ($taggedDatabasesDumper as $serviceId => $tags) {
+        $taggedSavers = $container->findTaggedServiceIds('saver');
+        foreach($taggedSavers as $serviceId => $tags){
             $serviceAlias = $tags[0]['alias'];
             $chain->addMethodCall(
-                'addDumper',
+                'addSaver',
                 [$serviceAlias, new Reference($serviceId)]
             );
         }

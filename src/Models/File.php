@@ -1,5 +1,5 @@
 <?php
-namespace FileSystem;
+namespace Models;
 
 /**
  * Class File

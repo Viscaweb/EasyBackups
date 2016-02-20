@@ -2,7 +2,7 @@
 
 namespace Compressor;
 
-use FileSystem\File;
+use Models\File;
 
 interface Compressor
 {

@@ -1,12 +1,12 @@
 services:
     chain.compressor:
-        class: Compilation\Chain\CompressorChain
+        class: DependencyInjection\Chain\CompressorChain
 
     chain.saver:
-        class: Compilation\Chain\SaverChain
+        class: DependencyInjection\Chain\SaverChain
 
     chain.dumper.database:
-        class: Compilation\Chain\DatabaseDumperChain
+        class: DependencyInjection\Chain\DatabaseDumperChain
 
     dumper.database.mysql:
         class: Dumper\Database\MySQLDatabaseDumper
