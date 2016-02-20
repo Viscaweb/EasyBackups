@@ -29,6 +29,11 @@ class FileSystemSaver implements Saver
             $i++;
             $fileContent = file_get_contents($file->getPath());
             $fileLocation = 'dump'.$i.'.tar.xz';
+
+            if ($fileSystem->has($fileLocation)){
+                $fileSystem->delete($fileLocation);
+            }
+
             if (!$fileSystem->write($fileLocation, $fileContent)) {
                 throw new CanNotSavedException();
             }
