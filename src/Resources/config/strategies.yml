@@ -11,6 +11,7 @@ easy_backups:
           user: root
           pass: ~
           name: test_wp
+          ignore_tables: ~
       compressor_strategy: tar_xz
       saver_strategy: file_system
     -
