@@ -1,4 +1,7 @@
 services:
+    collector.strategies.databases:
+        class: DependencyInjection\Collector\BackupStrategiesCollector
+
     chain.compressor:
         class: DependencyInjection\Chain\CompressorChain
 
