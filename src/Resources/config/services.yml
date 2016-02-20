@@ -24,3 +24,18 @@ services:
         class: Saver\FileSystemSaver
         tags:
             - { name: saver, alias: 'file_system' }
+
+    processor.dump.databases:
+        class: Processor\DatabaseDumperStrategyProcessor
+        arguments:
+          - '@chain.dumper.database'
+          - '@chain.compressor'
+          - '@chain.saver'
+
+    command.dumper:
+        class: Command\DatabaseDumperCommand
+        arguments:
+          - '@collector.strategies.databases'
+          - '@processor.dump.databases'
+        tags:
+          - { name: console.command }
