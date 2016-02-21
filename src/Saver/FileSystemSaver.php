@@ -1,7 +1,6 @@
 <?php
 namespace Saver;
 
-use Helper\TemporaryFilesHelper;
 use Models\File;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
@@ -13,18 +12,19 @@ use Saver\Exceptions\CanNotSavedException;
 class FileSystemSaver implements Saver
 {
     /**
-     * @var TemporaryFilesHelper
+     * @var string
      */
-    protected $filesHelper;
+    protected $backupFolder;
 
     /**
-     * TarXzCompressor constructor.
+     * FileSystemSaver constructor.
      *
-     * @param TemporaryFilesHelper $filesHelper
+     * @param string $backupFolder
      */
-    public function __construct(TemporaryFilesHelper $filesHelper)
-    {
-        $this->filesHelper = $filesHelper;
+    public function __construct(
+        $backupFolder
+    ) {
+        $this->backupFolder = $backupFolder;
     }
 
     /**
@@ -36,8 +36,7 @@ class FileSystemSaver implements Saver
      */
     public function save($files)
     {
-        $tmpFolder =  $this->filesHelper->getTemporaryFolder();
-        $fileSystemAdapter = new Local($tmpFolder);
+        $fileSystemAdapter = new Local($this->backupFolder);
         $fileSystem = new Filesystem($fileSystemAdapter);
         $savedFiles = [];
 

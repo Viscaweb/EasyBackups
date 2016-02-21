@@ -29,7 +29,7 @@ services:
     saver.file_system:
         class: Saver\FileSystemSaver
         arguments:
-            - '@helper.temporary_files'
+            - '%saving_backups_folder%'
         tags:
             - { name: saver, alias: 'file_system' }
 
