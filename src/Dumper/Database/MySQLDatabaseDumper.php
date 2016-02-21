@@ -80,7 +80,8 @@ class MySQLDatabaseDumper implements DatabaseDumper
                 $dumpingOptions .= '--ignore-table='
                     .escapeshellarg($settings->getDbName())
                     .'.'.
-                    escapeshellarg($ignoredTable);
+                    escapeshellarg($ignoredTable).
+                    ' ';
             }
         }
 
