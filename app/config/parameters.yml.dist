@@ -1,3 +1,4 @@
 parameters:
     temporary_folder: ~
+    saving_format: "[date-year]-[date-month]-[date-day]/[identifier].[ext]"
     saving_backups_folder: ~

@@ -4,6 +4,7 @@ namespace Saver;
 use Models\File;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use Resolver\FileNameResolver;
 use Saver\Exceptions\CanNotSavedException;
 
 /**
@@ -11,19 +12,23 @@ use Saver\Exceptions\CanNotSavedException;
  */
 class FileSystemSaver implements Saver
 {
-    /**
-     * @var string
-     */
+    /** @var FileNameResolver */
+    private $fileNameResolver;
+
+    /** @var string */
     protected $backupFolder;
 
     /**
      * FileSystemSaver constructor.
      *
-     * @param string $backupFolder
+     * @param FileNameResolver $fileNameResolver
+     * @param string           $backupFolder
      */
     public function __construct(
+        FileNameResolver $fileNameResolver,
         $backupFolder
     ) {
+        $this->fileNameResolver = $fileNameResolver;
         $this->backupFolder = $backupFolder;
     }
 
@@ -43,7 +48,14 @@ class FileSystemSaver implements Saver
         $i = 0;
         foreach ($files as $file) {
             $i++;
-            $newBackupLocation = $this->backupFolder.'/dump'.$i.'.tar.xz';
+
+            $filePath = $this->fileNameResolver->resolve(
+                new \DateTime(),
+                'database',
+                'tax_xz'
+            );
+
+            $newBackupLocation = $this->backupFolder.'/'.$filePath;
             $currBackupLocation = $file->getPath();
 
             if ($fileSystem->has($newBackupLocation)) {

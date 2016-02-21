@@ -7,3 +7,4 @@ imports:
   - { resource: services/processors.yml }
   - { resource: services/commands.yml }
   - { resource: services/helpers.yml }
+  - { resource: services/resolvers.yml }

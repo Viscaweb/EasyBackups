@@ -1,0 +1,5 @@
+services:
+    resolver.filename:
+        class: Resolver\FileNameResolver
+        arguments:
+           - '%saving_format%'
