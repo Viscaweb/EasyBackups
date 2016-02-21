@@ -36,26 +36,26 @@ class FileSystemSaver implements Saver
      */
     public function save($files)
     {
-        $fileSystemAdapter = new Local($this->backupFolder);
+        $fileSystemAdapter = new Local('/');
         $fileSystem = new Filesystem($fileSystemAdapter);
         $savedFiles = [];
 
         $i = 0;
         foreach ($files as $file) {
             $i++;
-            $fileContent = file_get_contents($file->getPath());
-            $fileLocation = 'dump'.$i.'.tar.xz';
+            $newBackupLocation = $this->backupFolder.'/dump'.$i.'.tar.xz';
+            $currBackupLocation = $file->getPath();
 
-            if ($fileSystem->has($fileLocation)) {
-                $fileSystem->delete($fileLocation);
+            if ($fileSystem->has($newBackupLocation)) {
+                $fileSystem->delete($newBackupLocation);
             }
 
-            if (!$fileSystem->write($fileLocation, $fileContent)) {
+            if (!$fileSystem->rename($currBackupLocation, $newBackupLocation)) {
                 throw new CanNotSavedException();
             }
 
             $savedFiles[] = new File(
-                $fileSystemAdapter->applyPathPrefix($fileLocation)
+                $fileSystemAdapter->applyPathPrefix($newBackupLocation)
             );
         }
 
