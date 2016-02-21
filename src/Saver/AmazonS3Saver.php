@@ -85,7 +85,7 @@ class AmazonS3Saver implements Saver
             $i++;
 
             $filePath = $this->fileNameResolver->resolve(
-                new \DateTime('now', new \DateTime('UTC')),
+                new \DateTime('now', new \DateTimeZone('UTC')),
                 'database',
                 'tax_xz'
             );
