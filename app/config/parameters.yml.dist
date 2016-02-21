@@ -2,3 +2,8 @@ parameters:
     temporary_folder: ~
     saving_format: "[date-year]-[date-month]-[date-day]/[identifier].[ext]"
     saving_backups_folder: ~
+    amazon_s3.bucket: ~
+    amazon_s3.key: ~
+    amazon_s3.secret: ~
+    amazon_s3.region: ~
+    amazon_s3.version: ~

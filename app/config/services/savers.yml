@@ -6,3 +6,15 @@ services:
             - '%saving_backups_folder%'
         tags:
             - { name: saver, alias: 'file_system' }
+
+    saver.amazon_s3:
+        class: Saver\AmazonS3Saver
+        arguments:
+            - '@resolver.filename'
+            - '%amazon_s3.bucket%'
+            - '%amazon_s3.key%'
+            - '%amazon_s3.secret%'
+            - '%amazon_s3.region%'
+            - '%amazon_s3.version%'
+        tags:
+            - { name: saver, alias: 'amazon_s3' }
