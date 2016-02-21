@@ -15,12 +15,14 @@ services:
         class: Dumper\Database\MySQLDatabaseDumper
         arguments:
             - '@helper.temporary_files'
+            - '@helper.shell_executor'
         tags:
             - { name: dumper.database, alias: 'mysql' }
     compressor.tar_xz:
         class: Compressor\TarXzCompressor
         arguments:
             - '@helper.temporary_files'
+            - '@helper.shell_executor'
         tags:
             - { name: compressor, alias: 'tar_xz' }
 
@@ -50,3 +52,6 @@ services:
         class: Helper\TemporaryFilesHelper
         arguments:
           - '%temporary_folder%'
+
+    helper.shell_executor:
+        class: Helper\ShellExecutorHelper

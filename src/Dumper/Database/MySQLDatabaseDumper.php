@@ -2,6 +2,7 @@
 
 namespace Dumper\Database;
 
+use Helper\ShellExecutorHelper;
 use Helper\TemporaryFilesHelper;
 use Models\File;
 
@@ -16,13 +17,22 @@ class MySQLDatabaseDumper implements DatabaseDumper
     protected $filesHelper;
 
     /**
-     * TarXzCompressor constructor.
+     * @var ShellExecutorHelper
+     */
+    protected $shellExecutor;
+
+    /**
+     * MySQLDatabaseDumper constructor.
      *
      * @param TemporaryFilesHelper $filesHelper
+     * @param ShellExecutorHelper  $shellExecutor
      */
-    public function __construct(TemporaryFilesHelper $filesHelper)
-    {
+    public function __construct(
+        TemporaryFilesHelper $filesHelper,
+        ShellExecutorHelper $shellExecutor
+    ) {
         $this->filesHelper = $filesHelper;
+        $this->shellExecutor = $shellExecutor;
     }
 
     /**
@@ -40,7 +50,7 @@ class MySQLDatabaseDumper implements DatabaseDumper
             $dumpLocation
         );
 
-        shell_exec($dumpCommand);
+        $this->shellExecutor->execute($dumpCommand);
 
         if (file_exists($dumpLocation) && filesize($dumpLocation) > 0) {
             $dumpFile = new File($dumpLocation);

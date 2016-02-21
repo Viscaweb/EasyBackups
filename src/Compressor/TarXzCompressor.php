@@ -1,6 +1,7 @@
 <?php
 namespace Compressor;
 
+use Helper\ShellExecutorHelper;
 use Helper\TemporaryFilesHelper;
 use Models\File;
 
@@ -15,13 +16,22 @@ class TarXzCompressor implements Compressor
     protected $filesHelper;
 
     /**
+     * @var ShellExecutorHelper
+     */
+    protected $shellExecutor;
+
+    /**
      * TarXzCompressor constructor.
      *
      * @param TemporaryFilesHelper $filesHelper
+     * @param ShellExecutorHelper  $shellExecutor
      */
-    public function __construct(TemporaryFilesHelper $filesHelper)
-    {
+    public function __construct(
+        TemporaryFilesHelper $filesHelper,
+        ShellExecutorHelper $shellExecutor
+    ) {
         $this->filesHelper = $filesHelper;
+        $this->shellExecutor = $shellExecutor;
     }
 
     /**

@@ -19,7 +19,6 @@ Some improvements to achieve on this project:
 * Being able to download backups from the tools through a command
 * Create differential backups (instead of full backups)
 * Being able to export files
-* Run the shell commands through an independent service
 * Support more compressors
 * Cleaning the temporary folder once finished
 * Detect when the temporary folder does not have enough free space to welcome the backup
