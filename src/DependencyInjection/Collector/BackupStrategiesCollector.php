@@ -5,6 +5,7 @@ namespace DependencyInjection\Collector;
 use Dumper\Database\DatabaseSettings;
 use Models\Strategies\DatabaseBackupStrategyModel;
 use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Yaml\Yaml;
 
 class BackupStrategiesCollector
@@ -15,9 +16,11 @@ class BackupStrategiesCollector
      */
     public function collectDatabasesStrategies()
     {
-        $config = Yaml::parse(
-            file_get_contents(__DIR__.'/../../Resources/config/strategies.yml')
-        );
+        $fileLocator = new FileLocator(__DIR__.'/../../../app/config');
+        $fileStrategies = $fileLocator->locate('strategies.yml');
+        $strategies = file_get_contents($fileStrategies);
+
+        $config = Yaml::parse($strategies);
         $config = $config['easy_backups'];
 
         $processor = new Processor();

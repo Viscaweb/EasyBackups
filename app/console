@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-require __DIR__.'/vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 
 use DependencyInjection\Collector\DatabaseStrategyConfiguration;
 use DependencyInjection\CompilerPass\CompressorCompilerPass;
@@ -21,12 +21,9 @@ $container->addCompilerPass(new CompressorCompilerPass());
 $container->addCompilerPass(new DatabaseDumperCompilerPass());
 $container->addCompilerPass(new SaverCompilerPass());
 
-$fileLocatorApp = new FileLocator(__DIR__.'/app/config');
-$loader = new YamlFileLoader($container, $fileLocatorApp);
-$loader->load('parameters.yml');
-
-$fileLocator = new FileLocator(__DIR__.'/src/Resources/config');
+$fileLocator = new FileLocator(__DIR__.'/../app/config');
 $loader = new YamlFileLoader($container, $fileLocator);
+$loader->load('parameters.yml');
 $loader->load('services.yml');
 
 $container->compile();
@@ -34,7 +31,7 @@ $container->compile();
 /*
  * Load the configuration
  */
-
+$loader = new YamlFileLoader($container, $fileLocator);
 $configFile = $fileLocator->locate('strategies.yml');
 $config = Yaml::parse(file_get_contents($configFile));
 

@@ -1,0 +1,16 @@
+easy_backups:
+  strategies:
+    -
+      identifier: 'Identifier used for the file names'
+      description: 'Optional description for this backup'
+      dump_strategy: database
+      dump_settings:
+        type: mysql
+        options:
+          host: host
+          user: user
+          pass: pass
+          name: name
+          ignore_tables: ~
+      compressor_strategy: tar_xz
+      saver_strategy: file_system
