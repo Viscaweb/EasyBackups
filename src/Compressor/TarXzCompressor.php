@@ -1,6 +1,7 @@
 <?php
 namespace Compressor;
 
+use Helper\TemporaryFilesHelper;
 use Models\File;
 
 /**
@@ -9,13 +10,30 @@ use Models\File;
 class TarXzCompressor implements Compressor
 {
     /**
+     * @var TemporaryFilesHelper
+     */
+    protected $filesHelper;
+
+    /**
+     * TarXzCompressor constructor.
+     *
+     * @param TemporaryFilesHelper $filesHelper
+     */
+    public function __construct(TemporaryFilesHelper $filesHelper)
+    {
+        $this->filesHelper = $filesHelper;
+    }
+
+    /**
      * @param File[] $files
      *
      * @return File[]
      */
     public function compress($files)
     {
-        $compressedLocation = sys_get_temp_dir().'/compressed.tar.xz';
+        $compressedLocation = $this->filesHelper->createTemporaryFile(
+            'compressed'
+        );
         $compressedCommand = $this->createCommand(
             $files,
             $compressedLocation
@@ -23,8 +41,12 @@ class TarXzCompressor implements Compressor
 
         shell_exec($compressedCommand);
 
-        if (file_exists($compressedLocation) && filesize($compressedLocation) > 0){
+        if (file_exists($compressedLocation) && filesize(
+                $compressedLocation
+            ) > 0
+        ) {
             $compressedFile = new File($compressedLocation);
+
             return [$compressedFile];
         }
 
@@ -41,7 +63,7 @@ class TarXzCompressor implements Compressor
     private function createCommand($files, $compressTo)
     {
         $filesToCompress = [];
-        foreach($files as $file){
+        foreach ($files as $file) {
             $filesToCompress[] = escapeshellarg($file->getPath());
         }
         $filesToCompressInline = implode(' ', $filesToCompress);

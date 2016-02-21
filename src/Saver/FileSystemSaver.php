@@ -1,6 +1,7 @@
 <?php
 namespace Saver;
 
+use Helper\TemporaryFilesHelper;
 use Models\File;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
@@ -12,6 +13,21 @@ use Saver\Exceptions\CanNotSavedException;
 class FileSystemSaver implements Saver
 {
     /**
+     * @var TemporaryFilesHelper
+     */
+    protected $filesHelper;
+
+    /**
+     * TarXzCompressor constructor.
+     *
+     * @param TemporaryFilesHelper $filesHelper
+     */
+    public function __construct(TemporaryFilesHelper $filesHelper)
+    {
+        $this->filesHelper = $filesHelper;
+    }
+
+    /**
      * @param File[] $files
      *
      * @return File[]
@@ -20,7 +36,8 @@ class FileSystemSaver implements Saver
      */
     public function save($files)
     {
-        $fileSystemAdapter = new Local(sys_get_temp_dir());
+        $tmpFolder =  $this->filesHelper->getTemporaryFolder();
+        $fileSystemAdapter = new Local($tmpFolder);
         $fileSystem = new Filesystem($fileSystemAdapter);
         $savedFiles = [];
 
@@ -30,7 +47,7 @@ class FileSystemSaver implements Saver
             $fileContent = file_get_contents($file->getPath());
             $fileLocation = 'dump'.$i.'.tar.xz';
 
-            if ($fileSystem->has($fileLocation)){
+            if ($fileSystem->has($fileLocation)) {
                 $fileSystem->delete($fileLocation);
             }
 

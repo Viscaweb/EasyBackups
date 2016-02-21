@@ -20,6 +20,11 @@ $container = new ContainerBuilder();
 $container->addCompilerPass(new CompressorCompilerPass());
 $container->addCompilerPass(new DatabaseDumperCompilerPass());
 $container->addCompilerPass(new SaverCompilerPass());
+
+$fileLocatorApp = new FileLocator(__DIR__.'/app/config');
+$loader = new YamlFileLoader($container, $fileLocatorApp);
+$loader->load('parameters.yml');
+
 $fileLocator = new FileLocator(__DIR__.'/src/Resources/config');
 $loader = new YamlFileLoader($container, $fileLocator);
 $loader->load('services.yml');

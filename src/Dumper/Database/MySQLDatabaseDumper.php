@@ -2,6 +2,7 @@
 
 namespace Dumper\Database;
 
+use Helper\TemporaryFilesHelper;
 use Models\File;
 
 /**
@@ -9,6 +10,20 @@ use Models\File;
  */
 class MySQLDatabaseDumper implements DatabaseDumper
 {
+    /**
+     * @var TemporaryFilesHelper
+     */
+    protected $filesHelper;
+
+    /**
+     * TarXzCompressor constructor.
+     *
+     * @param TemporaryFilesHelper $filesHelper
+     */
+    public function __construct(TemporaryFilesHelper $filesHelper)
+    {
+        $this->filesHelper = $filesHelper;
+    }
 
     /**
      * Returns the list of files generated for this dump.
@@ -19,7 +34,7 @@ class MySQLDatabaseDumper implements DatabaseDumper
      */
     public function dump(DatabaseSettings $settings)
     {
-        $dumpLocation = sys_get_temp_dir().'/database.sql';
+        $dumpLocation = $this->filesHelper->createTemporaryFile('database');
         $dumpCommand = $this->createCommand(
             $settings,
             $dumpLocation
@@ -27,8 +42,9 @@ class MySQLDatabaseDumper implements DatabaseDumper
 
         shell_exec($dumpCommand);
 
-        if (file_exists($dumpLocation) && filesize($dumpLocation) > 0){
+        if (file_exists($dumpLocation) && filesize($dumpLocation) > 0) {
             $dumpFile = new File($dumpLocation);
+
             return [$dumpFile];
         }
 
