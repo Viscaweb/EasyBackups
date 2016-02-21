@@ -1,0 +1,8 @@
+services:
+    helper.temporary_files:
+        class: Helper\TemporaryFilesHelper
+        arguments:
+          - '%temporary_folder%'
+
+    helper.shell_executor:
+        class: Helper\ShellExecutorHelper

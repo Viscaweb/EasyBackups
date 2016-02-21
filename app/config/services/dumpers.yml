@@ -1,0 +1,8 @@
+services:
+    dumper.database.mysql:
+        class: Dumper\Database\MySQLDatabaseDumper
+        arguments:
+            - '@helper.temporary_files'
+            - '@helper.shell_executor'
+        tags:
+            - { name: dumper.database, alias: 'mysql' }

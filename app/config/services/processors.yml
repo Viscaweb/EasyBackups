@@ -1,0 +1,7 @@
+services:
+    processor.dump.databases:
+        class: Processor\DatabaseDumperStrategyProcessor
+        arguments:
+          - '@chain.dumper.database'
+          - '@chain.compressor'
+          - '@chain.saver'

@@ -1,0 +1,3 @@
+services:
+    collector.strategies.databases:
+        class: DependencyInjection\Collector\BackupStrategiesCollector

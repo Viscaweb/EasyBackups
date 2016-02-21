@@ -1,0 +1,9 @@
+services:
+    chain.compressor:
+        class: DependencyInjection\Chain\CompressorChain
+
+    chain.saver:
+        class: DependencyInjection\Chain\SaverChain
+
+    chain.dumper.database:
+        class: DependencyInjection\Chain\DatabaseDumperChain

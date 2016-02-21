@@ -1,57 +1,9 @@
-services:
-    collector.strategies.databases:
-        class: DependencyInjection\Collector\BackupStrategiesCollector
-
-    chain.compressor:
-        class: DependencyInjection\Chain\CompressorChain
-
-    chain.saver:
-        class: DependencyInjection\Chain\SaverChain
-
-    chain.dumper.database:
-        class: DependencyInjection\Chain\DatabaseDumperChain
-
-    dumper.database.mysql:
-        class: Dumper\Database\MySQLDatabaseDumper
-        arguments:
-            - '@helper.temporary_files'
-            - '@helper.shell_executor'
-        tags:
-            - { name: dumper.database, alias: 'mysql' }
-    compressor.tar_xz:
-        class: Compressor\TarXzCompressor
-        arguments:
-            - '@helper.temporary_files'
-            - '@helper.shell_executor'
-        tags:
-            - { name: compressor, alias: 'tar_xz' }
-
-    saver.file_system:
-        class: Saver\FileSystemSaver
-        arguments:
-            - '%saving_backups_folder%'
-        tags:
-            - { name: saver, alias: 'file_system' }
-
-    processor.dump.databases:
-        class: Processor\DatabaseDumperStrategyProcessor
-        arguments:
-          - '@chain.dumper.database'
-          - '@chain.compressor'
-          - '@chain.saver'
-
-    command.dumper:
-        class: Command\DatabaseDumperCommand
-        arguments:
-          - '@collector.strategies.databases'
-          - '@processor.dump.databases'
-        tags:
-          - { name: console.command }
-
-    helper.temporary_files:
-        class: Helper\TemporaryFilesHelper
-        arguments:
-          - '%temporary_folder%'
-
-    helper.shell_executor:
-        class: Helper\ShellExecutorHelper
+imports:
+  - { resource: services/collectors.yml }
+  - { resource: services/chains.yml }
+  - { resource: services/dumpers.yml }
+  - { resource: services/compressors.yml }
+  - { resource: services/savers.yml }
+  - { resource: services/processors.yml }
+  - { resource: services/commands.yml }
+  - { resource: services/helpers.yml }

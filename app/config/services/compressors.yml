@@ -1,0 +1,8 @@
+services:
+    compressor.tar_xz:
+        class: Compressor\TarXzCompressor
+        arguments:
+            - '@helper.temporary_files'
+            - '@helper.shell_executor'
+        tags:
+            - { name: compressor, alias: 'tar_xz' }
