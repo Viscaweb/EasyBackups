@@ -24,3 +24,4 @@ Some improvements to achieve on this project:
 * Detect when the temporary folder does not have enough free space to welcome the backup
 * Exporting MySQL: hiding the message 'Warning: Using a password on the command line interface can be insecure.'
 * Write meta-data about the backups (in order to retrieve them easily later)
+* Delete old backups automatically
