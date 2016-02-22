@@ -55,10 +55,7 @@ class DatabaseDumperStrategyProcessor
         DatabaseBackupStrategyModel $configuration,
         callable $setActionName
     ) {
-
-        /*
-         * Dump the database
-         */
+        /* Dump the database */
         $setActionName('Dumping database...');
         $databaseDumper = $this->chainDatabasesDumper->getDumper(
             $configuration->getDatabaseType()
@@ -67,18 +64,14 @@ class DatabaseDumperStrategyProcessor
             $configuration->getDatabaseSettings()
         );
 
-        /*
-         * Compress the database?
-         */
+        /* Compress the database */
         $setActionName('Compressing database...');
         $compressor = $this->chainCompressor->getCompressor(
             $configuration->getCompressorStrategy()
         );
         $dumpCompressedFiles = $compressor->compress($dumpFiles);
 
-        /*
-         * Save the files
-         */
+        /* Save the files */
         $setActionName('Saving files...');
         $saver = $this->chainSaver->getSaver(
             $configuration->getFileSaverStrategy()
