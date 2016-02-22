@@ -56,6 +56,8 @@ class FileNameResolver
             'date-year' => $date->format('Y'),
             'date-month' => $date->format('M'),
             'date-day' => $date->format('d'),
+            'date-hour' => $date->format('H'),
+            'date-minute' => $date->format('i'),
             'identifier' => $fileIdentifier,
             'ext' => $fileExt,
         ];
