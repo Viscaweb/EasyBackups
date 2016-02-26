@@ -1,0 +1,6 @@
+services:
+    events.dispatcher:
+        class: Symfony\Component\EventDispatcher\EventDispatcher
+        calls:
+          - ['addListener', ['file_temporary.create', ['@garbage.file.listener', 'onTemporaryFileCreated']]]
+          - ['addListener', ['backup.ends', ['@garbage.file.listener', 'onBackupsEnds']]]

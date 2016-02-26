@@ -1,0 +1,8 @@
+services:
+    garbage.file.collector:
+        class: Collector\GarbageFileCollector
+
+    garbage.file.listener:
+        class: Listener\FilesGarbageListener
+        arguments:
+          - '@garbage.file.collector'

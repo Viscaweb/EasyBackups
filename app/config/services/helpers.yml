@@ -3,6 +3,7 @@ services:
         class: Helper\TemporaryFilesHelper
         arguments:
           - '%temporary_folder%'
+          - '@events.dispatcher'
 
     helper.shell_executor:
         class: Helper\ShellExecutorHelper

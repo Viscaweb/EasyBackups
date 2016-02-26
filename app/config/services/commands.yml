@@ -4,5 +4,6 @@ services:
         arguments:
           - '@collector.strategies.databases'
           - '@processor.dump.databases'
+          - '@events.dispatcher'
         tags:
           - { name: console.command }

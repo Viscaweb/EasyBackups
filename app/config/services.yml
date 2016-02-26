@@ -8,3 +8,5 @@ imports:
   - { resource: services/commands.yml }
   - { resource: services/helpers.yml }
   - { resource: services/resolvers.yml }
+  - { resource: services/events.yml }
+  - { resource: services/garbage.yml }
