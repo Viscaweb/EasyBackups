@@ -3,6 +3,7 @@
 namespace DependencyInjection\Collector;
 
 use Dumper\Database\DatabaseSettings;
+use InvalidArgumentException;
 use Models\Strategies\DatabaseBackupStrategyModel;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
@@ -17,7 +18,13 @@ class BackupStrategiesCollector
     public function collectDatabasesStrategies()
     {
         $fileLocator = new FileLocator(__DIR__.'/../../../app/config');
-        $fileStrategies = $fileLocator->locate('strategies.yml');
+        try {
+            $fileStrategies = $fileLocator->locate('strategies.yml');
+        } catch (InvalidArgumentException $ex){
+            /* No strategies file detected? No strategies then. :=) */
+            return [];
+        }
+
         $strategies = file_get_contents($fileStrategies);
 
         $config = Yaml::parse($strategies);

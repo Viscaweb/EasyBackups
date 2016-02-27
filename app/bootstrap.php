@@ -30,9 +30,13 @@ $container->compile();
  * Load the configuration
  */
 $loader = new YamlFileLoader($container, $fileLocator);
-$configFile = $fileLocator->locate('strategies.yml');
-$config = Yaml::parse(file_get_contents($configFile));
 
-$processor = new Processor();
-$configuration = new DatabaseStrategyConfiguration();
-$processedConfiguration = $processor->processConfiguration($configuration, $config);
+try {
+    $configFile = $fileLocator->locate('strategies.yml');
+    $config = Yaml::parse(file_get_contents($configFile));
+    $processor = new Processor();
+    $configuration = new DatabaseStrategyConfiguration();
+    $processedConfiguration = $processor->processConfiguration($configuration, $config);
+} catch (InvalidArgumentException $ex){
+}
+
