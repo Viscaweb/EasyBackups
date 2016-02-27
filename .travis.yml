@@ -7,3 +7,7 @@ before_install:
   - composer self-update
   - composer config preferred-install source
 install: composer install --no-interaction --no-progress
+matrix:
+  include:
+    - php: 5.6
+      env: WP_TRAVISCI=travis:phpunit
