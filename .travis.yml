@@ -1,4 +1,9 @@
 language: php
+sudo: false
 script: vendor/bin/phpunit -v
 php:
-  - '5.5'
+  - '5.6'
+before_install:
+  - composer self-update
+  - composer config preferred-install source
+install: composer install --no-interaction --no-progress
