@@ -20,8 +20,8 @@ To do
 ------------
 Some improvements to achieve on this project:
 
-* Support more file systems (S3, etc..)
-* Write tests
+* Support more file systems (in progress)
+* Write tests (in progress)
 * Complete the README with the installation steps
 * Send final report by emails
 * Being able to download backups from the tools through a command
@@ -32,3 +32,4 @@ Some improvements to achieve on this project:
 * Exporting MySQL: hiding the message 'Warning: Using a password on the command line interface can be insecure.'
 * Write meta-data about the backups (in order to retrieve them easily later)
 * Delete old backups automatically
+* Provide an API to ensure the backups exists and is valid
