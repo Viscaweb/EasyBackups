@@ -23,7 +23,6 @@ class MySQLDatabaseDumperTest extends PHPUnit_Extensions_Database_TestCase
     {
         parent::setUp();
 
-        require __DIR__.'/../../app/bootstrap.php';
         $container = getContainer();
         self::$databaseDumper = $container->get('dumper.database.mysql');
     }
