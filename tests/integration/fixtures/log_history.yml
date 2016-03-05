@@ -1,0 +1,9 @@
+log_history:
+    -
+        id: 1
+        created: '2016-07-03 22:00:00'
+        content: 'Who said PHP was not cool?'
+    -
+        id: 2
+        created: '2016-06-06 12:00:00'
+        content: 'I definitely hate Internet Explorer'

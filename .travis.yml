@@ -11,3 +11,10 @@ matrix:
   include:
     - php: 5.6
       env: WP_TRAVISCI=travis:phpunit
+services:
+  - mysql
+before_script:
+  - mysql -e 'create database visca_easybackups_tests'
+  - mysql -e 'create database visca_easybackups_tests2'
+  - mysql visca_easybackups_tests < tests/integration/schema/log_history.sql
+  - mysql visca_easybackups_tests2 < tests/integration/schema/log_history.sql
