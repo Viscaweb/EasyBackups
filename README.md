@@ -33,3 +33,5 @@ Some improvements to achieve on this project:
 * Write meta-data about the backups (in order to retrieve them easily later)
 * Delete old backups automatically
 * Provide an API to ensure the backups exists and is valid
+* Option to export the dump of each tables in a single file (@kristianmu)
+* Detect when the diffence of size of two consecutive backups is significant (@kristianmu)
