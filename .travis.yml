@@ -2,19 +2,24 @@ language: php
 sudo: false
 script: vendor/bin/phpunit -v
 php:
-  - '5.6'
+- '5.6'
 before_install:
-  - composer self-update
-  - composer config preferred-install source
-install: composer install --no-interaction --no-progress
+- composer self-update
+- composer config preferred-install source
+install:
+  - composer config -g github-oauth.github.com $GITHUB_COMPOSER_AUTH
+  - composer install --dev --no-interaction
 matrix:
   include:
-    - php: 5.6
-      env: WP_TRAVISCI=travis:phpunit
+  - php: 5.6
+    env: WP_TRAVISCI=travis:phpunit
 services:
-  - mysql
+- mysql
 before_script:
-  - mysql -e 'create database visca_easybackups_tests'
-  - mysql -e 'create database visca_easybackups_tests2'
-  - mysql visca_easybackups_tests < tests/integration/schema/log_history.sql
-  - mysql visca_easybackups_tests2 < tests/integration/schema/log_history.sql
+- mysql -e 'create database visca_easybackups_tests'
+- mysql -e 'create database visca_easybackups_tests2'
+- mysql visca_easybackups_tests < tests/integration/schema/log_history.sql
+- mysql visca_easybackups_tests2 < tests/integration/schema/log_history.sql
+env:
+  global:
+    secure: ZJMQhip/qU9BOdt4SBmtZGnFendYJHwlDXkHNtiGtgMkyS4T+M030Mo3q572U9DhjiwjGjwGPuTOh1ssej0fad1z9XYZLP4bAFSbWj1Q55loccyZ095gRzW/Pbh5TrG37UI7h1g8l+I2ke6slFhNoYUWogHwCoJXgNW2wqEMtcyZ262EcRTQan7/pZj+Yz4izd8I1zrlVja0ID4dGOTGR9TCumaLgyZlYgEwlVj3Wr22udR121HXCvJ9urJI8QM6tOxGOnMhXQ5/sF6VZsKR+5/yXa4CN/wETSoUAAzU1X/Xe++uEUXOz5nk4irwrbfoWq/Yam2wJwRXAtVzCmhcXYY4oxl0PIRWC6z8mGGvMKMWT0n/Nnqse5wTw5lPICdLHAuDeIwUSOKdfL1/+839ZnLjTDceln9rDyYP+bHRdDL4Rp/Y18e5Q4dv1de0aDFBp5uiOCtPDe0efq/zWIigH2hX1fn0WkSCewoayH8oNmCiTDQgweS6FhnLzwPWUxaNdPbGxR/k/CD5YQ/EXhBqyD624qmNKD5Agy+bYNs78k2mmcDIZr9rdgfJXY0DPP+bM3XQOnkaX91GIDNB5FDzyorTdToYIohqw2+X0P+7hb1vZBjrWx/7MtFsLnQXUCb2+PwPICk6LB4BkOfBXGDpYZbk/vtJPFpcnBI0sgQc6Ds=
