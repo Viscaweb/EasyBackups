@@ -34,4 +34,5 @@ Some improvements to achieve on this project:
 * Delete old backups automatically
 * Provide an API to ensure the backups exists and is valid
 * Option to export the dump of each tables in a single file (@kristianmu)
-* Detect when the diffence of size of two consecutive backups is significant (@kristianmu)
+* Detect when the difference of size of two consecutive backups is significant (@kristianmu)
+* Verify the integrity of the backups
