@@ -9,6 +9,7 @@ services:
 
     saver.amazon_s3:
         class: Saver\AmazonS3Saver
+        lazy: true
         arguments:
             - '@resolver.filename'
             - '%amazon_s3.bucket%'

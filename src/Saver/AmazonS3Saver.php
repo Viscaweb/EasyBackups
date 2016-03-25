@@ -11,25 +11,13 @@ use Saver\Exceptions\CanNotSavedException;
 /**
  * Class AmazonS3Saver
  */
-class AmazonS3Saver implements Saver
+class AmazonS3Saver implements Saver, Reader
 {
     /** @var FileNameResolver */
     private $fileNameResolver;
 
-    /** @var string */
-    private $instanceBucket;
-
-    /** @var string */
-    private $instanceKey;
-
-    /** @var string */
-    private $instanceSecret;
-
-    /** @var string */
-    private $instanceRegion;
-
-    /** @var string */
-    private $instanceVersion;
+    /** @var AwsS3Adapter */
+    private $amazonAdapter;
 
     /**
      * AmazonS3Saver constructor.
@@ -50,11 +38,18 @@ class AmazonS3Saver implements Saver
         $instanceVersion
     ) {
         $this->fileNameResolver = $fileNameResolver;
-        $this->instanceBucket = $instanceBucket;
-        $this->instanceKey = $instanceKey;
-        $this->instanceSecret = $instanceSecret;
-        $this->instanceRegion = $instanceRegion;
-        $this->instanceVersion = $instanceVersion;
+
+        $client = new S3Client(
+            [
+                'credentials' => [
+                    'key' => $instanceKey,
+                    'secret' => $instanceSecret
+                ],
+                'region' => $instanceRegion,
+                'version' => $instanceVersion,
+            ]
+        );
+        $this->amazonAdapter = new AwsS3Adapter($client, $instanceBucket);
     }
 
     /**
@@ -66,19 +61,6 @@ class AmazonS3Saver implements Saver
      */
     public function save($files)
     {
-        $client = new S3Client(
-            [
-                'credentials' => [
-                    'key' => $this->instanceKey,
-                    'secret' => $this->instanceSecret
-                ],
-                'region' => $this->instanceRegion,
-                'version' => $this->instanceVersion,
-            ]
-        );
-
-        $amazonAdapter = new AwsS3Adapter($client, $this->instanceBucket);
-
         $savedFiles = [];
         $i = 0;
         foreach ($files as $file) {
@@ -91,7 +73,7 @@ class AmazonS3Saver implements Saver
             );
 
             $resource = fopen($file->getPath(), 'r');
-            $amazonAnswer = $amazonAdapter->writeStream(
+            $amazonAnswer = $this->amazonAdapter->writeStream(
                 $filePath,
                 $resource,
                 new Config()
@@ -102,10 +84,60 @@ class AmazonS3Saver implements Saver
                 throw new CanNotSavedException();
             }
 
-            $amazonFile = $this->instanceBucket.'@'.$amazonAnswer['path'];
-            $savedFiles[] = new File($amazonFile);
+            $savedFiles[] = new File(
+                $this->getAmazonPathName($amazonAnswer['path'])
+            );
         }
 
         return $savedFiles;
     }
+
+    /**
+     * @param string $pattern
+     *
+     * @return File[]
+     */
+    public function listFiles($pattern)
+    {
+        $patternFolder = preg_replace('#^(.+\/)[^\/]+$#', '$1', $pattern);
+        $rawFiles = $this->amazonAdapter->listContents($patternFolder, true);
+
+        $files = [];
+        $patternRegex = $this->getPatternRegex($pattern);
+        foreach ($rawFiles as $rawFile) {
+            $path = $rawFile['path'];
+            if (!preg_match($patternRegex, $path)) {
+                continue;
+            }
+
+            $file = new File($this->getAmazonPathName($path));
+            $files[] = $file;
+        }
+
+        return $files;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return string
+     */
+    private function getAmazonPathName($path)
+    {
+        return $this->amazonAdapter->getBucket().'@'.$path;
+    }
+
+    /**
+     * @param $pattern
+     *
+     * @return string
+     */
+    private function getPatternRegex($pattern)
+    {
+        $patternRegex = str_replace('\\*', '*', preg_quote($pattern, '#'));
+
+        return '#'.$patternRegex.'#';
+    }
+
+
 }

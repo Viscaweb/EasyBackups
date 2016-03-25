@@ -10,3 +10,4 @@ imports:
   - { resource: services/resolvers.yml }
   - { resource: services/events.yml }
   - { resource: services/garbage.yml }
+  - { resource: services/reports.yml }

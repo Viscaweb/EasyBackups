@@ -1,0 +1,6 @@
+services:
+    reports.day_summary:
+        class: Reports\DaySummaryReport
+        arguments:
+            - '@saver.amazon_s3'
+            - '@resolver.filename'
