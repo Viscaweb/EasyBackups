@@ -1,6 +1,8 @@
 <?php
 namespace Saver;
 
+use League\Flysystem\ReadInterface;
+use Models\Path;
 use Models\File;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
@@ -10,7 +12,7 @@ use Saver\Exceptions\CanNotSavedException;
 /**
  * Class FileSystemSaver
  */
-class FileSystemSaver implements Saver
+class FileSystemSaver extends AbstractSaver implements Saver
 {
     /** @var FileNameResolver */
     private $fileNameResolver;
@@ -41,7 +43,7 @@ class FileSystemSaver implements Saver
      */
     public function save($files)
     {
-        $fileSystemAdapter = new Local('/');
+        $fileSystemAdapter = $this->getAdapter();
         $fileSystem = new Filesystem($fileSystemAdapter);
         $savedFiles = [];
 
@@ -73,4 +75,13 @@ class FileSystemSaver implements Saver
 
         return $savedFiles;
     }
+
+    /**
+     * @return Local
+     */
+    protected function getAdapter()
+    {
+        return new Local('/');
+    }
+
 }
