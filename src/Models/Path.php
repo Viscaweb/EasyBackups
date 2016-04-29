@@ -30,4 +30,15 @@ class Path
         return $this->path;
     }
 
+    /**
+     * @param string $path
+     *
+     * @return Path
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
 }

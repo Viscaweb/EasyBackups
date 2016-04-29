@@ -20,7 +20,7 @@ class BackupStrategiesCollector
         $fileLocator = new FileLocator(__DIR__.'/../../../app/config');
         try {
             $fileStrategies = $fileLocator->locate('strategies.yml');
-        } catch (InvalidArgumentException $ex){
+        } catch (InvalidArgumentException $ex) {
             /* No strategies file detected? No strategies then. :=) */
             return [];
         }
@@ -36,8 +36,8 @@ class BackupStrategiesCollector
         $validatedConfig = $processor->processConfiguration($configuration, [$config]);
 
         $strategies = [];
-        if (isset($validatedConfig['strategies'])){
-            foreach($validatedConfig['strategies'] as $strategyConfig){
+        if (isset($validatedConfig['strategies'])) {
+            foreach ($validatedConfig['strategies'] as $strategyConfig) {
                 $strategy = new DatabaseBackupStrategyModel(
                     $strategyConfig['identifier'],
                     $strategyConfig['compressor_strategy'],
@@ -58,6 +58,24 @@ class BackupStrategiesCollector
         }
 
         return $strategies;
+    }
+
+    /**
+     * @param $identifier
+     *
+     * @return DatabaseBackupStrategyModel|null
+     */
+    public function getStrategy($identifier)
+    {
+        $strategies = $this->collectDatabasesStrategies();
+
+        foreach ($strategies as $strategy) {
+            if ($strategy->getIdentifier() === $identifier) {
+                return $strategy;
+            }
+        }
+
+        return null;
     }
 
 }

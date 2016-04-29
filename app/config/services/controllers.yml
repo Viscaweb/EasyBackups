@@ -1,0 +1,7 @@
+services:
+    controller.monitoring:
+        class: Controller\MonitoringController
+        arguments:
+            - '@collector.strategies.databases'
+            - '@serializer.model.file_report'
+            - '@reports.monitoring.database'

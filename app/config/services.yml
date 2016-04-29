@@ -12,3 +12,4 @@ imports:
   - { resource: services/garbage.yml }
   - { resource: services/reports.yml }
   - { resource: services/serializers.yml }
+  - { resource: services/controllers.yml }

@@ -36,3 +36,4 @@ Some improvements to achieve on this project:
 * Option to export the dump of each tables in a single file (@kristianmu)
 * Detect when the difference of size of two consecutive backups is significant (@kristianmu)
 * Verify the integrity of the backups
+* Use a known project to handle the API (with a swagger documentation)
