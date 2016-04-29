@@ -1,0 +1,3 @@
+services:
+    serializer.model.file_report:
+        class: Serializer\FileReportSerializer
