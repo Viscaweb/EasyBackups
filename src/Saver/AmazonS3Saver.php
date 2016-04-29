@@ -5,6 +5,8 @@ use Aws\S3\S3Client;
 use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\Config;
 use Models\File;
+use Models\Path;
+use Models\Reports\FileReportModel;
 use Resolver\FileNameResolver;
 use Saver\Exceptions\CanNotSavedException;
 
@@ -91,11 +93,31 @@ class AmazonS3Saver extends AbstractSaver implements Saver
                 throw new CanNotSavedException();
             }
 
-            $amazonFile = $this->instanceBucket.'@'.$amazonAnswer['path'];
-            $savedFiles[] = new File($amazonFile);
+            $savedFiles[] = new File($amazonAnswer['path']);
         }
 
         return $savedFiles;
+    }
+
+    /**
+     * @param Path      $path
+     * @param \DateTime $fromDate
+     * @param \DateTime $toDate
+     *
+     * @return FileReportModel[]
+     */
+    public function listContents(
+        Path $path,
+        \DateTime $fromDate,
+        \DateTime $toDate
+    ) {
+        $path->setPath(preg_replace(
+            '#^(.+)\/[^\/]+$#',
+            '$1',
+            $path->getPath()
+        ));
+
+        return parent::listContents($path, $fromDate, $toDate);
     }
 
     /**
