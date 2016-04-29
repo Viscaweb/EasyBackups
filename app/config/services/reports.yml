@@ -1,0 +1,6 @@
+services:
+    reports.monitoring.database:
+        class: Reports\DatabaseMonitoringReport
+        arguments:
+          - '@chain.saver'
+          - '@resolver.filename'
