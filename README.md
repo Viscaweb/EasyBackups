@@ -6,11 +6,31 @@ EasyBackups (by ViscaWeb)
 EasyBackups a little (and very light-weight) library helping in the process
 of backuping databases, files, etc..
 
-What can be dumped?
+What can I dump?
 ------------
-Currently, the script support:
-- Databases
-  - MySQL (through mysqldump)
+### Databases
+| Platform | Implementation     |
+| -------- | -----------------  |
+| MySQL    | :white_check_mark: |
+
+Where can I save the dumps?
+------------
+| Savers       | Implementation                 |
+| ------------ | ------------------------------ |
+| FileSystem   | :white_check_mark:             |
+| FTP          | `create ticket if you need it` |
+| Amazon S3 V3 | :white_check_mark:             |
+| Copy.com     | `create ticket if you need it` |
+| Azure        | `create ticket if you need it` |
+| DropBox      | `create ticket if you need it` |
+
+Which compression software is currently supported?
+------------
+| Compression  | Implementation     |
+| ------------ | -----------------  |
+| .tar.xz      | :white_check_mark: |
+| .tar.gz      | `to implement`     |
+| .zip         | `to implement`     |
 
 How to install and use this script?
 ------------
