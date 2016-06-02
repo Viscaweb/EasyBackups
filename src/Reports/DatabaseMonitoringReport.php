@@ -51,7 +51,7 @@ class DatabaseMonitoringReport
             $filesPattern = $this->fileNameResolver->resolvePatternForDay(
                 $date,
                 'database',
-                'tax_xz'
+                'tar.xz'
             );
             $filesPatternPath = new Path($filesPattern);
 
