@@ -7,6 +7,18 @@ services:
         tags:
             - { name: saver, alias: 'file_system' }
 
+    saver.ftp_server:
+        class: Saver\FTPSaver
+        arguments:
+            - '@resolver.filename'
+            - '%ftp_host%'
+            - '%ftp_user%'
+            - '%ftp_pass%'
+            - '%ftp_port%'
+            - '%ftp_main_path%'
+        tags:
+            - { name: saver, alias: 'ftp' }
+
     saver.amazon_s3:
         class: Saver\AmazonS3Saver
         arguments:

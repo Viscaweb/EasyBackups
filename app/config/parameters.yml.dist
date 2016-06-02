@@ -7,3 +7,8 @@ parameters:
     amazon_s3.secret: ~
     amazon_s3.region: ~
     amazon_s3.version: ~
+    ftp_host: ~
+    ftp_user: ~
+    ftp_pass: ~
+    ftp_port: 21
+    ftp_main_path: ~

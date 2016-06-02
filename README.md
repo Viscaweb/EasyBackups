@@ -18,7 +18,7 @@ Where can I save the dumps?
 | Savers       | Implementation                 |
 | ------------ | ------------------------------ |
 | FileSystem   | :white_check_mark:             |
-| FTP          | `create ticket if you need it` |
+| FTP          | :white_check_mark:             |
 | Amazon S3 V3 | :white_check_mark:             |
 | Copy.com     | `create ticket if you need it` |
 | Azure        | `create ticket if you need it` |
