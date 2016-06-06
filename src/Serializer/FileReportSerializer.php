@@ -12,8 +12,14 @@ class FileReportSerializer
      */
     public function serialize(FileReportModel $report)
     {
+        if (is_null($report->getCreationDate())) {
+            $inlineDate = null;
+        } else {
+            $inlineDate = $report->getCreationDate()->format('r');
+        }
+
         return [
-            'date' => $report->getCreationDate()->format('r'),
+            'date' => $inlineDate,
             'size' => $report->getSize(),
             'file' => $report->getFilename(),
         ];
@@ -24,9 +30,10 @@ class FileReportSerializer
      *
      * @return array
      */
-    public function serializeMany($reports){
+    public function serializeMany($reports)
+    {
         $serializedReport = [];
-        foreach($reports as $report){
+        foreach ($reports as $report) {
             $serializedReport[] = $this->serialize($report);
         }
 

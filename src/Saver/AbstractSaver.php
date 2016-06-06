@@ -46,10 +46,14 @@ abstract class AbstractSaver implements Saver
             if ($rawFile['type'] !== 'file') {
                 continue;
             }
-            $creationDate = \DateTime::createFromFormat(
-                'U',
-                $rawFile['timestamp']
-            );
+            if (isset($rawFile['timestamp'])){
+                $creationDate = \DateTime::createFromFormat(
+                    'U',
+                    $rawFile['timestamp']
+                );
+            } else {
+                $creationDate = null;
+            }
             $files[] = new FileReportModel(
                 $rawFile['path'],
                 $rawFile['size'],
