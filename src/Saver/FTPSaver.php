@@ -1,11 +1,8 @@
 <?php
 namespace Saver;
 
-use League\Flysystem\Adapter\Ftp;
-use League\Flysystem\ReadInterface;
-use Models\Path;
+use Adapter\FTPWildCardSearchAdapter;
 use Models\File;
-use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Resolver\FileNameResolver;
 use Saver\Exceptions\CanNotSavedException;
@@ -103,17 +100,18 @@ class FTPSaver extends AbstractSaver implements Saver
     }
 
     /**
-     * @return Ftp
+     * @return FTPWildCardSearchAdapter
      */
     protected function getAdapter()
     {
-        return new Ftp(
+        return new FTPWildCardSearchAdapter(
             [
                 'host' => $this->ftpHost,
                 'username' => $this->ftpUser,
                 'password' => $this->ftpPass,
                 'port' => $this->ftpPort,
                 'root' => $this->ftpMainPath,
+                'allowSearchingUsingWildCard' => true,
             ]
         );
     }
