@@ -2,6 +2,7 @@
 
 use Dumper\Database\DatabaseDumper;
 use Dumper\Database\DatabaseSettings;
+use Helper\ShellExecutorHelper;
 use Models\File;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
@@ -9,6 +10,9 @@ class MySQLDatabaseDumperTest extends PHPUnit_Extensions_Database_TestCase
 {
     /** @var DatabaseDumper */
     static public $databaseDumper;
+
+    /** @var ShellExecutorHelper */
+    static public $shellExecutor;
 
     const DB_HOST = '127.0.0.1';
     const DB_USER = 'root';
@@ -25,28 +29,51 @@ class MySQLDatabaseDumperTest extends PHPUnit_Extensions_Database_TestCase
 
         $container = getContainer();
         self::$databaseDumper = $container->get('dumper.database.mysql');
+        self::$shellExecutor = $container->get('helper.shell_executor');
     }
 
     /** @test */
     public function testDumpDbThenImportAreEquals()
     {
-        /* Dump the primary database containing the fixtures. */
-        $primaryDbSettings = new DatabaseSettings(
+        $this->assertDumpCreatesConsistentDump(new DatabaseSettings(
             self::DB_HOST,
             self::DB_USER,
             self::DB_PASS,
             self::DB_PRIMARY
+        ));
+    }
+
+    /** @test */
+    public function testDumpDbWithOneFilePerTableThenImportAreEquals()
+    {
+        $this->assertDumpCreatesConsistentDump(
+            new DatabaseSettings(
+                self::DB_HOST,
+                self::DB_USER,
+                self::DB_PASS,
+                self::DB_PRIMARY,
+                DatabaseSettings::DEFAULT_DATABASE_PORT,
+                null,
+                true
+            )
         );
-        $dumpPrimaryDb = self::$databaseDumper->dump($primaryDbSettings);
+    }
+
+    /**
+     * @param DatabaseSettings $settings
+     */
+    private function assertDumpCreatesConsistentDump(DatabaseSettings $settings)
+    {
+        $dumpPrimaryDb = self::$databaseDumper->dump($settings);
 
         /* Import the dump in order to test it. */
         $this->importDumpInSecondaryDb($dumpPrimaryDb);
 
         /* Compare DBs */
         $dbSecondary = $this->getPdo(self::DB_SECONDARY);
-        $e = $dbSecondary->createDataSet([self::DB_TESTED_TABLE]);
+        $expectedDataSet = $dbSecondary->createDataSet([self::DB_TESTED_TABLE]);
 
-        $this->assertDataSetsEqual($e, $this->getDataSet());
+        $this->assertDataSetsEqual($expectedDataSet, $this->getDataSet());
     }
 
     /**
@@ -102,7 +129,7 @@ class MySQLDatabaseDumperTest extends PHPUnit_Extensions_Database_TestCase
             escapeshellarg(self::DB_SECONDARY),
             $inlineFiles
         );
-        shell_exec($command);
+        self::$shellExecutor->execute($command);
     }
 }
 

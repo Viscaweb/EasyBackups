@@ -45,6 +45,7 @@ class DatabaseStrategyConfiguration implements ConfigurationInterface
                                                 ->prototype('scalar')
                                                 ->end()
                                             ->end()
+                                            ->booleanNode('one_dump_per_table')->defaultValue(false)->end()
                                         ->end()
                                     ->end()
                                 ->end()

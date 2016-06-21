@@ -57,6 +57,11 @@ class DatabaseSettings
     private $forceDump;
 
     /**
+     * @var bool
+     */
+    private $oneDumpPerTable;
+
+    /**
      * DatabaseSettings constructor.
      *
      * @param string    $dbHost
@@ -65,6 +70,7 @@ class DatabaseSettings
      * @param string    $dbName
      * @param int       $dbPort
      * @param \string[] $ignoredTables
+     * @param bool      $oneDumpPerTable
      */
     public function __construct(
         $dbHost,
@@ -72,7 +78,8 @@ class DatabaseSettings
         $dbPass,
         $dbName,
         $dbPort = self::DEFAULT_DATABASE_PORT,
-        array $ignoredTables = null
+        array $ignoredTables = null,
+        $oneDumpPerTable = false
     ) {
         $this->dbHost = $dbHost;
         $this->dbUser = $dbUser;
@@ -80,6 +87,7 @@ class DatabaseSettings
         $this->dbName = $dbName;
         $this->dbPort = (int) $dbPort;
         $this->ignoredTables = $ignoredTables;
+        $this->oneDumpPerTable = $oneDumpPerTable;
     }
 
     /**
@@ -138,6 +146,18 @@ class DatabaseSettings
     public function setForceDump($forceDump)
     {
         $this->forceDump = $forceDump;
+
+        return $this;
+    }
+
+    /**
+     * @param boolean $oneDumpPerTable
+     *
+     * @return DatabaseSettings
+     */
+    public function setOneDumpPerTable($oneDumpPerTable)
+    {
+        $this->oneDumpPerTable = $oneDumpPerTable;
 
         return $this;
     }
@@ -220,6 +240,14 @@ class DatabaseSettings
     public function isForceDump()
     {
         return $this->forceDump;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function wantsOneDumpPerTable()
+    {
+        return $this->oneDumpPerTable;
     }
 
     const DEFAULT_DATABASE_PORT = 3306;

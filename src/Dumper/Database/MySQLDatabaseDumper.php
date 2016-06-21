@@ -44,31 +44,51 @@ class MySQLDatabaseDumper implements DatabaseDumper
      */
     public function dump(DatabaseSettings $settings)
     {
-        $dumpLocation = $this->filesHelper->createTemporaryFile('database');
-        $dumpCommand = $this->createCommand(
-            $settings,
-            $dumpLocation
-        );
+        $files = [];
 
-        $this->shellExecutor->execute($dumpCommand);
+        if ($settings->wantsOneDumpPerTable()) {
+            foreach ($this->getAllTables($settings) as $table) {
+                $dumpLocation = $this->filesHelper->createTemporaryFile(
+                    'database_table_'.$table
+                );
+                $dumpCommand = $this->createCommand(
+                    $settings,
+                    $dumpLocation,
+                    $table
+                );
 
-        if (file_exists($dumpLocation) && filesize($dumpLocation) > 0) {
-            $dumpFile = new File($dumpLocation);
+                $this->shellExecutor->execute($dumpCommand);
 
-            return [$dumpFile];
+                if (file_exists($dumpLocation) && filesize($dumpLocation) > 0) {
+                    $files[] = new File($dumpLocation);
+                }
+            }
+        } else {
+            $dumpLocation = $this->filesHelper->createTemporaryFile('database');
+            $dumpCommand = $this->createCommand($settings, $dumpLocation);
+
+            $this->shellExecutor->execute($dumpCommand);
+
+            if (file_exists($dumpLocation) && filesize($dumpLocation) > 0) {
+                $files[] = new File($dumpLocation);
+            }
         }
 
-        return [];
+        return $files;
     }
 
     /**
      * @param DatabaseSettings $settings
      * @param string           $dumpLocation
+     * @param null|string      $filterTable
      *
      * @return string
      */
-    private function createCommand(DatabaseSettings $settings, $dumpLocation)
-    {
+    private function createCommand(
+        DatabaseSettings $settings,
+        $dumpLocation,
+        $filterTable = null
+    ) {
         /*
          * Dumping options
          */
@@ -106,11 +126,40 @@ class MySQLDatabaseDumper implements DatabaseDumper
             escapeshellarg($settings->getDbPass()),
             $dumpingOptions,
             escapeshellarg($settings->getDbName()),
+            $filterTable ? escapeshellarg($filterTable) : '',
             $dumpLocation
         );
 
         return $command;
     }
 
-    const MYSQLDUMP_STRUCTURE = 'mysqldump -h %s -u %s -P %d --password=%s %s %s > %s';
+    /**
+     * @param DatabaseSettings $settings
+     *
+     * @return \string[]
+     */
+    private function getAllTables(DatabaseSettings $settings)
+    {
+        $tableListCommand = sprintf(
+            self::MYSQL_QUERY_STRUCTURE,
+            escapeshellarg($settings->getDbHost()),
+            escapeshellarg($settings->getDbUser()),
+            $settings->getDbPort(),
+            escapeshellarg($settings->getDbPass()),
+            escapeshellarg($settings->getDbName()),
+            escapeshellarg('SHOW TABLES')
+        );
+
+        $rawTablesList = $this->shellExecutor->execute($tableListCommand);
+
+        $tablesList = explode("\n", $rawTablesList);
+        unset($tablesList[0]);
+
+        return array_values($tablesList);
+
+    }
+
+    const MYSQLDUMP_STRUCTURE = 'mysqldump -h %s -u %s -P %d --password=%s %s %s %s > %s';
+
+    const MYSQL_QUERY_STRUCTURE = 'mysql -h %s -u %s -P %d --password=%s %s -e %s';
 }

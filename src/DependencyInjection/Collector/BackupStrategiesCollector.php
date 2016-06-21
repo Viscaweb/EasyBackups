@@ -49,7 +49,8 @@ class BackupStrategiesCollector
                         $strategyConfig['dump_settings']['options']['pass'],
                         $strategyConfig['dump_settings']['options']['name'],
                         $strategyConfig['dump_settings']['options']['port'],
-                        $strategyConfig['dump_settings']['options']['ignore_tables']
+                        $strategyConfig['dump_settings']['options']['ignore_tables'],
+                        $strategyConfig['dump_settings']['options']['one_dump_per_table']
                     )
                 );
                 $strategy->setDescription($strategyConfig['description']);
