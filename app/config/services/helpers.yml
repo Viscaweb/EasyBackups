@@ -7,3 +7,6 @@ services:
 
     helper.shell_executor:
         class: Helper\ShellExecutorHelper
+
+    helper.deepest_common_files_folder:
+        class: Helper\DeepestCommonFolderHelper
