@@ -105,7 +105,7 @@ class MySQLDatabaseDumper implements DatabaseDumper
         if ($settings->isForceDump()) {
             $dumpingOptions .= '--force ';
         }
-        if (count($settings->getIgnoredTables()) > 0) {
+        if ($filterTable === null && count($settings->getIgnoredTables()) > 0) {
             foreach ($settings->getIgnoredTables() as $ignoredTable) {
                 $dumpingOptions .= '--ignore-table='
                     .escapeshellarg($settings->getDbName())
