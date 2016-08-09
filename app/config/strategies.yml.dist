@@ -11,6 +11,7 @@ easy_backups:
           user: user
           pass: pass
           name: name
+          one_dump_per_table: false
           ignore_tables: ~
       compressor_strategy: tar_xz
       saver_strategy: file_system
