@@ -158,7 +158,7 @@ class MySQLDatabaseDumper implements DatabaseDumper
         foreach ($tablesList as $index => $table) {
             $isLegend = $table === 'Tables_in_'.$settings->getDbName();
             $isNotValidTable = empty($table);
-            $isIgnoredTable = in_array($table, $settings->getIgnoredTables());
+            $isIgnoredTable = is_array($settings->getIgnoredTables()) && in_array($table, $settings->getIgnoredTables());
             if ($isLegend || $isNotValidTable || $isIgnoredTable) {
                 unset($tablesList[$index]);
             }
