@@ -47,9 +47,9 @@ class MySQLDatabaseDumper implements DatabaseDumper
         $files = [];
 
         if ($settings->wantsOneDumpPerTable()) {
-            foreach ($this->getAllTables($settings) as $table) {
+            foreach ($this->getTablesToExport($settings) as $table) {
                 $dumpLocation = $this->filesHelper->createTemporaryFile(
-                    'database_table_'.$table
+                    $settings->getDbName().'.'.$table.'.sql'
                 );
                 $dumpCommand = $this->createCommand(
                     $settings,
@@ -64,7 +64,9 @@ class MySQLDatabaseDumper implements DatabaseDumper
                 }
             }
         } else {
-            $dumpLocation = $this->filesHelper->createTemporaryFile('database');
+            $dumpLocation = $this->filesHelper->createTemporaryFile(
+                $settings->getDbName().'.sql'
+            );
             $dumpCommand = $this->createCommand($settings, $dumpLocation);
 
             $this->shellExecutor->execute($dumpCommand);
@@ -138,7 +140,7 @@ class MySQLDatabaseDumper implements DatabaseDumper
      *
      * @return \string[]
      */
-    private function getAllTables(DatabaseSettings $settings)
+    private function getTablesToExport(DatabaseSettings $settings)
     {
         $tableListCommand = sprintf(
             self::MYSQL_QUERY_STRUCTURE,
@@ -153,10 +155,16 @@ class MySQLDatabaseDumper implements DatabaseDumper
         $rawTablesList = $this->shellExecutor->execute($tableListCommand);
 
         $tablesList = explode("\n", $rawTablesList);
-        unset($tablesList[0]);
+        foreach ($tablesList as $index => $table) {
+            $isLegend = $table === 'Tables_in_'.$settings->getDbName();
+            $isNotValidTable = empty($table);
+            $isIgnoredTable = in_array($table, $settings->getIgnoredTables());
+            if ($isLegend || $isNotValidTable || $isIgnoredTable) {
+                unset($tablesList[$index]);
+            }
+        }
 
         return array_values($tablesList);
-
     }
 
     const MYSQLDUMP_STRUCTURE = 'mysqldump -h %s -u %s -P %d --password=%s %s %s %s > %s';
