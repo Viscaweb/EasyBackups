@@ -4,5 +4,6 @@ services:
         arguments:
             - '@helper.temporary_files'
             - '@helper.shell_executor'
+            - '@helper.deepest_common_files_folder'
         tags:
             - { name: compressor, alias: 'tar_xz' }

@@ -7,7 +7,7 @@ class DeepestCommonFolderHelperTest extends PHPUnit_Framework_TestCase
 {
     /** @var DeepestCommonFolderHelper */
     private $helper;
-    
+
     public function setUp()
     {
         $this->helper = new DeepestCommonFolderHelper();
@@ -35,5 +35,14 @@ class DeepestCommonFolderHelperTest extends PHPUnit_Framework_TestCase
         ]);
 
         $this->assertEquals('/folder-1/folder-2', $deepestFolder);
+    }
+
+    /** @test */
+    public function testFolderEndsWithoutDash(){
+        $deepestFolder = $this->helper->findDeepest([
+            new File('/folder-1/folder-2/file1.txt'),
+        ]);
+
+        $this->assertNotEquals('/', substr($deepestFolder, -1));
     }
 }

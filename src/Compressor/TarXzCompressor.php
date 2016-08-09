@@ -1,6 +1,7 @@
 <?php
 namespace Compressor;
 
+use Helper\DeepestCommonFolderHelper;
 use Helper\ShellExecutorHelper;
 use Helper\TemporaryFilesHelper;
 use Models\File;
@@ -21,17 +22,25 @@ class TarXzCompressor implements Compressor
     protected $shellExecutor;
 
     /**
+     * @var DeepestCommonFolderHelper
+     */
+    protected $deepestCommonFolderHelper;
+
+    /**
      * TarXzCompressor constructor.
      *
-     * @param TemporaryFilesHelper $filesHelper
-     * @param ShellExecutorHelper  $shellExecutor
+     * @param TemporaryFilesHelper      $filesHelper
+     * @param ShellExecutorHelper       $shellExecutor
+     * @param DeepestCommonFolderHelper $deepestCommonFolderHelper
      */
     public function __construct(
         TemporaryFilesHelper $filesHelper,
-        ShellExecutorHelper $shellExecutor
+        ShellExecutorHelper $shellExecutor,
+        DeepestCommonFolderHelper $deepestCommonFolderHelper
     ) {
         $this->filesHelper = $filesHelper;
         $this->shellExecutor = $shellExecutor;
+        $this->deepestCommonFolderHelper = $deepestCommonFolderHelper;
     }
 
     /**
@@ -72,21 +81,28 @@ class TarXzCompressor implements Compressor
      */
     private function createCommand($files, $compressTo)
     {
+        $baseFolder = $this->deepestCommonFolderHelper->findDeepest($files);
+
         $filesToCompress = [];
         foreach ($files as $file) {
-            $filesToCompress[] = escapeshellarg($file->getPath());
+            $filePathFromBaseFolder = substr(
+                $file->getPath(),
+                strlen($baseFolder) + 1
+            );
+            $filesToCompress[] = escapeshellarg($filePathFromBaseFolder);
         }
         $filesToCompressInline = implode(' ', $filesToCompress);
 
         $command = sprintf(
             self::COMPRESS_STRUCTURE,
             escapeshellarg($compressTo),
+            $baseFolder,
             $filesToCompressInline
         );
 
         return $command;
     }
 
-    const COMPRESS_STRUCTURE = 'tar cfJP %s %s';
+    const COMPRESS_STRUCTURE = 'tar cfJP %s -C %s %s';
 
 }

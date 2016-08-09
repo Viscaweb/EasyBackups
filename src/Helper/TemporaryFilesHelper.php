@@ -22,7 +22,7 @@ class TemporaryFilesHelper
     /**
      * TemporaryFilesHelper constructor.
      *
-     * @param string $temporaryFolder
+     * @param string                   $temporaryFolder
      * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(
@@ -47,16 +47,31 @@ class TemporaryFilesHelper
     }
 
     /**
-     * @param string $prefix
+     * @param string $filename
      *
      * @return string
      */
-    public function createTemporaryFile($prefix)
+    public function createTemporaryFile($filename)
     {
-        $temporaryFile = tempnam(
-            $this->temporaryFolder,
-            $prefix
-        );
+        $temporaryFolder = $this->getTemporaryFolder();
+        $temporaryFolder = realpath($temporaryFolder);
+
+        $index = 0;
+        do {
+            $index++;
+            $temporaryFile = $temporaryFolder.'/'.$index.'/'.$filename;
+            if (file_exists($temporaryFile)){
+                continue;
+            }
+
+            if (!is_dir($temporaryFolder.'/'.$index)){
+                if (!mkdir($temporaryFolder.'/'.$index)) {
+                    continue;
+                }
+            }
+
+            break;
+        } while (true);
 
         $this->dispatcher->dispatch(
             Events::FILE_TEMPORARY_CREATE,
