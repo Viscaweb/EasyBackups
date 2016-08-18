@@ -30,4 +30,16 @@ class File
         return $this->path;
     }
 
+    /**
+     * @return string
+     */
+    public function getExtension()
+    {
+        if (preg_match('/((\.[A-z0-9]{2,3})+)$/', $this->getPath(), $args)){
+            return substr($args[0], 1);
+        }
+
+        return '';
+    }
+
 }

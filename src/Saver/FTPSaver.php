@@ -76,7 +76,7 @@ class FTPSaver extends AbstractSaver implements Saver
             $saveLocation = $this->fileNameResolver->resolve(
                 new \DateTime('now', new \DateTimeZone('UTC')),
                 'database',
-                'tar.xz'
+                $file->getExtension()
             );
 
             if ($fileSystem->has($saveLocation)){

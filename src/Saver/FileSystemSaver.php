@@ -54,7 +54,7 @@ class FileSystemSaver extends AbstractSaver implements Saver
             $filePath = $this->fileNameResolver->resolve(
                 new \DateTime('now', new \DateTimeZone('UTC')),
                 'database',
-                'tar.xz'
+                $file->getExtension()
             );
 
             $newBackupLocation = $this->backupFolder.'/'.$filePath;

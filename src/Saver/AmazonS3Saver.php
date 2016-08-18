@@ -78,7 +78,7 @@ class AmazonS3Saver extends AbstractSaver implements Saver
             $filePath = $this->fileNameResolver->resolve(
                 new \DateTime('now', new \DateTimeZone('UTC')),
                 'database',
-                'tar.xz'
+                $file->getExtension()
             );
 
             $resource = fopen($file->getPath(), 'r');
