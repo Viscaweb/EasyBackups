@@ -29,8 +29,9 @@ Which compression software is currently supported?
 | Compression  | Implementation     |
 | ------------ | -----------------  |
 | .tar.xz      | :white_check_mark: |
-| .tar.gz      | `to implement`     |
-| .zip         | `to implement`     |
+| .tar.gz      | :white_check_mark: |
+| .tar.bz2     | :white_check_mark: |
+| .zip         | :white_check_mark: |
 
 How to install and use this script?
 ------------

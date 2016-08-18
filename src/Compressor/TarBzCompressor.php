@@ -2,13 +2,13 @@
 namespace Compressor;
 
 /**
- * Class TarXzCompressor
+ * Class TarBzCompressor
  */
-class TarXzCompressor extends AbstractCompressor implements Compressor
+class TarBzCompressor extends AbstractCompressor implements Compressor
 {
     protected function getExtension()
     {
-        return 'tar.xz';
+        return 'tar.bz2';
     }
 
     /**
@@ -24,7 +24,7 @@ class TarXzCompressor extends AbstractCompressor implements Compressor
         $filesToCompressInline
     ) {
         $compressCommand = sprintf(
-            "tar cfJP %s -C %s %s",
+            "tar -cvjSf %s -C %s %s",
             escapeshellarg($compressTo),
             $baseFolder,
             $filesToCompressInline

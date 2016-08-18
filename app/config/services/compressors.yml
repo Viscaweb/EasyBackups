@@ -1,9 +1,31 @@
 services:
-    compressor.tar_xz:
-        class: Compressor\TarXzCompressor
+    compressor.abstract.tar:
+        abstract: true
         arguments:
             - '@helper.temporary_files'
             - '@helper.shell_executor'
             - '@helper.deepest_common_files_folder'
+
+    compressor.tar_xz:
+        parent: compressor.abstract.tar
+        class: Compressor\TarXzCompressor
         tags:
             - { name: compressor, alias: 'tar_xz' }
+
+    compressor.tar_gz:
+        parent: compressor.abstract.tar
+        class: Compressor\TarGzCompressor
+        tags:
+            - { name: compressor, alias: 'tar_gz' }
+
+    compressor.tar_bz2:
+        parent: compressor.abstract.tar
+        class: Compressor\TarBzCompressor
+        tags:
+            - { name: compressor, alias: 'tar_bz2' }
+
+    compressor.zip:
+        parent: compressor.abstract.tar
+        class: Compressor\ZipCompressor
+        tags:
+            - { name: compressor, alias: 'zip' }

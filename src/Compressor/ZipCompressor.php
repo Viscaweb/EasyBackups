@@ -2,13 +2,15 @@
 namespace Compressor;
 
 /**
- * Class TarXzCompressor
+ * Class ZipCompressor
  */
-class TarXzCompressor extends AbstractCompressor implements Compressor
+class ZipCompressor extends AbstractCompressor implements Compressor
 {
-    protected function getExtension()
-    {
-        return 'tar.xz';
+    /**
+     * @return string
+     */
+    protected function getExtension(){
+        return 'zip';
     }
 
     /**
@@ -23,13 +25,13 @@ class TarXzCompressor extends AbstractCompressor implements Compressor
         $baseFolder,
         $filesToCompressInline
     ) {
-        $compressCommand = sprintf(
-            "tar cfJP %s -C %s %s",
+        $moveToFolderCommand = 'cd '.escapeshellarg($baseFolder);
+        $compressToZipCommand = sprintf(
+            "zip %s %s",
             escapeshellarg($compressTo),
-            $baseFolder,
             $filesToCompressInline
         );
 
-        return $compressCommand;
+        return "$moveToFolderCommand && $compressToZipCommand";
     }
 }
