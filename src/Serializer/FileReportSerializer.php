@@ -1,4 +1,5 @@
 <?php
+
 namespace Serializer;
 
 use Models\Reports\FileReportModel;

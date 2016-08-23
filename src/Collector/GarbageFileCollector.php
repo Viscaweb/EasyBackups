@@ -1,4 +1,5 @@
 <?php
+
 namespace Collector;
 
 final class GarbageFileCollector
@@ -21,8 +22,9 @@ final class GarbageFileCollector
      *
      * @return $this
      */
-    public function addFile($file){
-        if (!in_array($file, $this->files)){
+    public function addFile($file)
+    {
+        if (!in_array($file, $this->files)) {
             $this->files[] = $file;
         }
 
@@ -36,5 +38,4 @@ final class GarbageFileCollector
     {
         return $this->files;
     }
-
 }

@@ -3,11 +3,10 @@
 namespace Dumper\File;
 
 /**
- * Class FileSettings
+ * Class FileSettings.
  */
 class FileSettings
 {
-
     /**
      * @var string
      */
@@ -22,5 +21,4 @@ class FileSettings
     {
         $this->path = $path;
     }
-
 }

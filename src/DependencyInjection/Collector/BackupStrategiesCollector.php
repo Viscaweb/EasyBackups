@@ -11,7 +11,6 @@ use Symfony\Component\Yaml\Yaml;
 
 class BackupStrategiesCollector
 {
-
     /**
      * @return DatabaseBackupStrategyModel[]
      */
@@ -75,8 +74,5 @@ class BackupStrategiesCollector
                 return $strategy;
             }
         }
-
-        return null;
     }
-
 }

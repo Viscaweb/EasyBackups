@@ -8,7 +8,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class TemporaryFilesHelper
 {
-
     /**
      * @var string
      */
@@ -60,11 +59,11 @@ class TemporaryFilesHelper
         do {
             $index++;
             $temporaryFile = $temporaryFolder.'/'.$index.'/'.$filename;
-            if (file_exists($temporaryFile)){
+            if (file_exists($temporaryFile)) {
                 continue;
             }
 
-            if (!is_dir($temporaryFolder.'/'.$index)){
+            if (!is_dir($temporaryFolder.'/'.$index)) {
                 if (!mkdir($temporaryFolder.'/'.$index)) {
                     continue;
                 }
@@ -80,5 +79,4 @@ class TemporaryFilesHelper
 
         return $temporaryFile;
     }
-
 }

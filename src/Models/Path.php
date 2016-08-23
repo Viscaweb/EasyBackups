@@ -1,12 +1,12 @@
 <?php
+
 namespace Models;
 
 /**
- * Class Path
+ * Class Path.
  */
 class Path
 {
-
     /**
      * @var string
      */

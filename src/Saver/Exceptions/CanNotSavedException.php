@@ -1,10 +1,10 @@
 <?php
+
 namespace Saver\Exceptions;
 
 /**
- * Class CanNotSavedException
+ * Class CanNotSavedException.
  */
 class CanNotSavedException extends \Exception
 {
-
 }

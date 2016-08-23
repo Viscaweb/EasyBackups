@@ -1,12 +1,8 @@
 <?php
 
-use DependencyInjection\Chain\SaverChain;
-use Dumper\Database\DatabaseSettings;
 use League\Flysystem\ReadInterface;
 use Models\Path;
 use Models\Reports\FileReportModel;
-use Models\Strategies\DatabaseBackupStrategyModel;
-use Reports\DatabaseMonitoringReport;
 use Saver\AbstractSaver;
 
 class AbstractSaverTest extends PHPUnit_Framework_TestCase
@@ -35,7 +31,7 @@ class AbstractSaverTest extends PHPUnit_Framework_TestCase
     {
         $fakeFiles = [
             $this->convertRealObjectToRawResponse($this->fakeFile1),
-            $this->convertRealObjectToRawResponse($this->fakeFile2)
+            $this->convertRealObjectToRawResponse($this->fakeFile2),
         ];
 
         $adapterMock = $this->getMockBuilder(ReadInterface::class)->getMock();
@@ -64,7 +60,7 @@ class AbstractSaverTest extends PHPUnit_Framework_TestCase
     {
         $fakeFilesInWrongOrder = [
             $this->convertRealObjectToRawResponse($this->fakeFile2),
-            $this->convertRealObjectToRawResponse($this->fakeFile1)
+            $this->convertRealObjectToRawResponse($this->fakeFile1),
         ];
 
         $adapterMock = $this->getMockBuilder(ReadInterface::class)->getMock();
@@ -93,11 +89,10 @@ class AbstractSaverTest extends PHPUnit_Framework_TestCase
     private function convertRealObjectToRawResponse(FileReportModel $file)
     {
         return [
-            'type' => 'file',
+            'type'      => 'file',
             'timestamp' => $file->getCreationDate()->getTimestamp(),
-            'path' => $file->getFilename(),
-            'size' => $file->getSize(),
+            'path'      => $file->getFilename(),
+            'size'      => $file->getSize(),
         ];
     }
 }
-

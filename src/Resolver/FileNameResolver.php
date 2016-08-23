@@ -1,4 +1,5 @@
 <?php
+
 namespace Resolver;
 
 final class FileNameResolver
@@ -26,13 +27,13 @@ final class FileNameResolver
     public function resolve(\DateTime $date, $fileIdentifier, $fileExt)
     {
         $variables = [
-            'date-year' => $date->format('Y'),
-            'date-month' => $date->format('M'),
-            'date-day' => $date->format('d'),
-            'date-hour' => $date->format('H'),
+            'date-year'   => $date->format('Y'),
+            'date-month'  => $date->format('M'),
+            'date-day'    => $date->format('d'),
+            'date-hour'   => $date->format('H'),
             'date-minute' => $date->format('i'),
-            'identifier' => $fileIdentifier,
-            'ext' => $fileExt,
+            'identifier'  => $fileIdentifier,
+            'ext'         => $fileExt,
         ];
 
         $varValues = array_values($variables);
@@ -54,13 +55,13 @@ final class FileNameResolver
         $fileExt
     ) {
         $variables = [
-            'date-year' => $date->format('Y'),
-            'date-month' => $date->format('M'),
-            'date-day' => $date->format('d'),
-            'date-hour' => '*',
+            'date-year'   => $date->format('Y'),
+            'date-month'  => $date->format('M'),
+            'date-day'    => $date->format('d'),
+            'date-hour'   => '*',
             'date-minute' => '*',
-            'identifier' => $fileIdentifier,
-            'ext' => $fileExt,
+            'identifier'  => $fileIdentifier,
+            'ext'         => $fileExt,
         ];
 
         $varValues = array_values($variables);

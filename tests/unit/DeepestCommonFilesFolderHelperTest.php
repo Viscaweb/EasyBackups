@@ -38,7 +38,8 @@ class DeepestCommonFolderHelperTest extends PHPUnit_Framework_TestCase
     }
 
     /** @test */
-    public function testFolderEndsWithoutDash(){
+    public function testFolderEndsWithoutDash()
+    {
         $deepestFolder = $this->helper->findDeepest([
             new File('/folder-1/folder-2/file1.txt'),
         ]);

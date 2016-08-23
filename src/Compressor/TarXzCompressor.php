@@ -1,8 +1,9 @@
 <?php
+
 namespace Compressor;
 
 /**
- * Class TarXzCompressor
+ * Class TarXzCompressor.
  */
 class TarXzCompressor extends AbstractCompressor implements Compressor
 {
@@ -24,7 +25,7 @@ class TarXzCompressor extends AbstractCompressor implements Compressor
         $filesToCompressInline
     ) {
         $compressCommand = sprintf(
-            "tar cfJP %s -C %s %s",
+            'tar cfJP %s -C %s %s',
             escapeshellarg($compressTo),
             $baseFolder,
             $filesToCompressInline

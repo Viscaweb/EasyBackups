@@ -29,6 +29,4 @@ class GarbageFileCollectorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($file2, $collectedFiles[1]);
         $this->assertEquals($file3, $collectedFiles[2]);
     }
-
 }
-

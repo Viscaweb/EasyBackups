@@ -6,7 +6,6 @@ use Symfony\Component\EventDispatcher\Event;
 
 final class FileCreatedEvent extends Event
 {
-
     /**
      * @var string File created
      */
@@ -29,5 +28,4 @@ final class FileCreatedEvent extends Event
     {
         return $this->filename;
     }
-
 }

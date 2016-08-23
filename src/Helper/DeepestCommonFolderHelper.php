@@ -1,4 +1,5 @@
 <?php
+
 namespace Helper;
 
 use Models\File;
@@ -16,8 +17,8 @@ class DeepestCommonFolderHelper
 
         foreach ($files as $file) {
             $folder = $this->findPath($file->getPath());
-            foreach($this->explodePath($folder) as $depth => $path){
-                if (!isset($pathsPerDepth[$depth][$path])){
+            foreach ($this->explodePath($folder) as $depth => $path) {
+                if (!isset($pathsPerDepth[$depth][$path])) {
                     $pathsPerDepth[$depth][$path] = 0;
                 }
                 $pathsPerDepth[$depth][$path]++;
@@ -27,15 +28,13 @@ class DeepestCommonFolderHelper
         krsort($pathsPerDepth);
 
         $totalFiles = count($files);
-        foreach($pathsPerDepth as $depth => $paths){
-            foreach($paths as $path => $numberOfFilesWithThisPath){
-                if ($numberOfFilesWithThisPath === $totalFiles){
+        foreach ($pathsPerDepth as $depth => $paths) {
+            foreach ($paths as $path => $numberOfFilesWithThisPath) {
+                if ($numberOfFilesWithThisPath === $totalFiles) {
                     return $path;
                 }
             }
         }
-
-        return null;
     }
 
     /**
@@ -50,7 +49,7 @@ class DeepestCommonFolderHelper
         $pathStructure = '';
         $depth = 0;
         foreach (explode('/', $path) as $part) {
-            if (empty($part)){
+            if (empty($part)) {
                 continue;
             }
             $depth++;
@@ -72,5 +71,4 @@ class DeepestCommonFolderHelper
     {
         return preg_replace('#^(.*)\/?[^\/]+$#U', '$1', $file);
     }
-
 }

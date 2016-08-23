@@ -1,4 +1,5 @@
 <?php
+
 namespace Controller;
 
 use DependencyInjection\Collector\BackupStrategiesCollector;
@@ -80,5 +81,4 @@ class MonitoringController
                 new \DateTimeZone('UTC')
             )->setTime(0, 0, 0);
     }
-
 }

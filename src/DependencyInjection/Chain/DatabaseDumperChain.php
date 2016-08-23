@@ -1,14 +1,14 @@
 <?php
+
 namespace DependencyInjection\Chain;
 
 use Dumper\Database\DatabaseDumper;
 
 /**
- * Class DatabaseDumperChain
+ * Class DatabaseDumperChain.
  */
 class DatabaseDumperChain
 {
-
     /**
      * @var DatabaseDumper[]
      */
@@ -42,5 +42,4 @@ class DatabaseDumperChain
             return $this->dumpers[$alias];
         }
     }
-
 }

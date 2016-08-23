@@ -1,4 +1,5 @@
 <?php
+
 namespace Compressor;
 
 use Helper\DeepestCommonFolderHelper;
@@ -7,7 +8,7 @@ use Helper\TemporaryFilesHelper;
 use Models\File;
 
 /**
- * Class AbstractCompressor
+ * Class AbstractCompressor.
  */
 abstract class AbstractCompressor implements Compressor
 {
@@ -89,7 +90,6 @@ abstract class AbstractCompressor implements Compressor
         return [];
     }
 
-
     /**
      * @param File[] $files
      * @param string $compressTo
@@ -116,5 +116,4 @@ abstract class AbstractCompressor implements Compressor
             $filesToCompressInline
         );
     }
-
 }

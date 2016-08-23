@@ -8,7 +8,6 @@ use Event\FileCreatedEvent;
 
 final class FilesGarbageListener
 {
-
     /**
      * @var GarbageFileCollector
      */
@@ -65,15 +64,14 @@ final class FilesGarbageListener
      */
     private function tryDeletingFile($file)
     {
-        if (!file_exists($file)){
+        if (!file_exists($file)) {
             return 'file not found (deleted or renamed meanwhile?) ✓';
         }
 
-        if (!$this->deleteFile($file)){
+        if (!$this->deleteFile($file)) {
             return 'file could not be deleted ✖';
         }
 
         return 'file deleted ✓';
     }
-
 }

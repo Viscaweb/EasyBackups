@@ -1,4 +1,5 @@
 <?php
+
 namespace Saver;
 
 use League\Flysystem\ReadInterface;
@@ -12,9 +13,9 @@ abstract class AbstractSaver implements Saver
     /**
      * @param File[] $files
      *
-     * @return File[]
-     *
      * @throws CanNotSavedException
+     *
+     * @return File[]
      */
     abstract public function save($files);
 
@@ -46,7 +47,7 @@ abstract class AbstractSaver implements Saver
             if ($rawFile['type'] !== 'file') {
                 continue;
             }
-            if (isset($rawFile['timestamp'])){
+            if (isset($rawFile['timestamp'])) {
                 $creationDate = \DateTime::createFromFormat(
                     'U',
                     $rawFile['timestamp']

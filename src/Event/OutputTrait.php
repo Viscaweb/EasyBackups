@@ -1,4 +1,5 @@
 <?php
+
 namespace Event;
 
 use Symfony\Component\Console\Output\OutputInterface;
@@ -29,5 +30,4 @@ trait OutputTrait
 
         return $this;
     }
-
 }
