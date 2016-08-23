@@ -1,15 +1,17 @@
 <?php
+
 namespace Compressor;
 
 /**
- * Class ZipCompressor
+ * Class ZipCompressor.
  */
 class ZipCompressor extends AbstractCompressor implements Compressor
 {
     /**
      * @return string
      */
-    protected function getExtension(){
+    protected function getExtension()
+    {
         return 'zip';
     }
 
@@ -27,7 +29,7 @@ class ZipCompressor extends AbstractCompressor implements Compressor
     ) {
         $moveToFolderCommand = 'cd '.escapeshellarg($baseFolder);
         $compressToZipCommand = sprintf(
-            "zip %s %s",
+            'zip %s %s',
             escapeshellarg($compressTo),
             $filesToCompressInline
         );

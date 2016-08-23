@@ -7,11 +7,10 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class DatabaseDumperCompilerPass
+ * Class DatabaseDumperCompilerPass.
  */
 class DatabaseDumperCompilerPass implements CompilerPassInterface
 {
-
     public function process(ContainerBuilder $container)
     {
         if (!$container->has('chain.dumper.database')) {
@@ -29,5 +28,4 @@ class DatabaseDumperCompilerPass implements CompilerPassInterface
             );
         }
     }
-
 }

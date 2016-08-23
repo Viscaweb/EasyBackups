@@ -4,7 +4,6 @@ namespace Dumper\File;
 
 interface FileDumper
 {
-
     /**
      * Returns the list of files generated for this dump.
      *
@@ -13,5 +12,4 @@ interface FileDumper
      * @return string[]
      */
     public function dump(FileSettings $settings);
-
 }

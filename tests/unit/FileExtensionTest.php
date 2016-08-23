@@ -4,7 +4,6 @@ use Models\File;
 
 class FileExtensionTest extends PHPUnit_Framework_TestCase
 {
-
     /** @test */
     public function test()
     {
@@ -15,4 +14,3 @@ class FileExtensionTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('rar', (new File('file.rar'))->getExtension());
     }
 }
-

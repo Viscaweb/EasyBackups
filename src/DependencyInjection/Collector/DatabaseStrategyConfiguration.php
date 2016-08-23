@@ -66,6 +66,4 @@ class DatabaseStrategyConfiguration implements ConfigurationInterface
 
         return $treeBuilder;
     }
-
-
 }

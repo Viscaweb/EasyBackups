@@ -1,4 +1,5 @@
 <?php
+
 namespace Command;
 
 use DependencyInjection\Collector\BackupStrategiesCollector;
@@ -8,7 +9,6 @@ use Events;
 use Processor\DatabaseDumperStrategyProcessor;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -50,7 +50,6 @@ class DatabaseDumperCommand extends Command
         $this->eventDispatcher = $eventDispatcher;
     }
 
-
     protected function configure()
     {
         $this
@@ -81,10 +80,10 @@ class DatabaseDumperCommand extends Command
         );
 
         $progressBar->start();
-        $reportContent = new \ArrayObject;
-        foreach($strategies as $strategy){
+        $reportContent = new \ArrayObject();
+        foreach ($strategies as $strategy) {
             $strategyIdentifier = $strategy->getIdentifier();
-            $setProgressBarMessage = function ($message) use ($progressBar, $strategyIdentifier){
+            $setProgressBarMessage = function ($message) use ($progressBar, $strategyIdentifier) {
                 $message = "[$strategyIdentifier] $message";
                 $progressBar->setMessage($message);
                 $progressBar->display();
@@ -93,7 +92,7 @@ class DatabaseDumperCommand extends Command
             $exportedFiles = $this->processorDatabaseDumper->dump($strategy, $setProgressBarMessage);
 
             $reportContent->append("Backuping of the database: $strategyIdentifier");
-            foreach($exportedFiles as $file){
+            foreach ($exportedFiles as $file) {
                 $filename = $file->getPath();
                 $reportContent->append("\t→ $filename");
             }
@@ -111,6 +110,6 @@ class DatabaseDumperCommand extends Command
             new BackupEndsEvent($output)
         );
     }
-    const PROGRESS_BAR_FORMAT = ' %current%/%max% [%bar%] %percent:3s%% %memory:6s% %message%';
 
+    const PROGRESS_BAR_FORMAT = ' %current%/%max% [%bar%] %percent:3s%% %memory:6s% %message%';
 }

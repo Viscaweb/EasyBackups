@@ -47,9 +47,9 @@ class DatabaseDumperStrategyProcessor
      * @param DatabaseBackupStrategyModel $configuration
      * @param callable                    $setActionName
      *
-     * @return File[]
-     *
      * @throws UnableToProcessException
+     *
+     * @return File[]
      */
     public function dump(
         DatabaseBackupStrategyModel $configuration,
@@ -80,5 +80,4 @@ class DatabaseDumperStrategyProcessor
 
         return $savedFiles;
     }
-
 }

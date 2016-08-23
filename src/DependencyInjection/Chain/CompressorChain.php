@@ -1,14 +1,14 @@
 <?php
+
 namespace DependencyInjection\Chain;
 
 use Compressor\Compressor;
 
 /**
- * Class CompressorChain
+ * Class CompressorChain.
  */
 class CompressorChain
 {
-
     /**
      * @var Compressor[]
      */
@@ -42,5 +42,4 @@ class CompressorChain
             return $this->compressors[$alias];
         }
     }
-
 }

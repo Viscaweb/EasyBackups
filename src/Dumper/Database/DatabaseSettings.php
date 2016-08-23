@@ -1,8 +1,9 @@
 <?php
+
 namespace Dumper\Database;
 
 /**
- * Class DatabaseSettings
+ * Class DatabaseSettings.
  */
 class DatabaseSettings
 {
@@ -103,7 +104,7 @@ class DatabaseSettings
     }
 
     /**
-     * @param boolean $optionDropDatabases
+     * @param bool $optionDropDatabases
      *
      * @return DatabaseSettings
      */
@@ -115,7 +116,7 @@ class DatabaseSettings
     }
 
     /**
-     * @param boolean $optionDropTables
+     * @param bool $optionDropTables
      *
      * @return DatabaseSettings
      */
@@ -127,7 +128,7 @@ class DatabaseSettings
     }
 
     /**
-     * @param boolean $optionAddLocks
+     * @param bool $optionAddLocks
      *
      * @return DatabaseSettings
      */
@@ -139,7 +140,7 @@ class DatabaseSettings
     }
 
     /**
-     * @param boolean $forceDump
+     * @param bool $forceDump
      *
      * @return DatabaseSettings
      */
@@ -151,7 +152,7 @@ class DatabaseSettings
     }
 
     /**
-     * @param boolean $oneDumpPerTable
+     * @param bool $oneDumpPerTable
      *
      * @return DatabaseSettings
      */
@@ -211,7 +212,7 @@ class DatabaseSettings
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isOptionDropDatabases()
     {
@@ -219,7 +220,7 @@ class DatabaseSettings
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isOptionDropTables()
     {
@@ -227,7 +228,7 @@ class DatabaseSettings
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isOptionAddLocks()
     {
@@ -235,7 +236,7 @@ class DatabaseSettings
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isForceDump()
     {
@@ -243,7 +244,7 @@ class DatabaseSettings
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function wantsOneDumpPerTable()
     {
@@ -251,5 +252,4 @@ class DatabaseSettings
     }
 
     const DEFAULT_DATABASE_PORT = 3306;
-
 }
