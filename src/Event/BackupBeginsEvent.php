@@ -1,4 +1,5 @@
 <?php
+
 namespace Event;
 
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,5 +18,4 @@ final class BackupBeginsEvent extends Event
     {
         $this->setOutput($output);
     }
-
 }

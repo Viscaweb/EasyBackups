@@ -1,14 +1,14 @@
 <?php
+
 namespace DependencyInjection\Chain;
 
 use Saver\Saver;
 
 /**
- * Class SaverChain
+ * Class SaverChain.
  */
 class SaverChain
 {
-
     /**
      * @var Saver[]
      */
@@ -42,5 +42,4 @@ class SaverChain
             return $this->saver[$alias];
         }
     }
-
 }

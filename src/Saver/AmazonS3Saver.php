@@ -1,4 +1,5 @@
 <?php
+
 namespace Saver;
 
 use Aws\S3\S3Client;
@@ -11,7 +12,7 @@ use Resolver\FileNameResolver;
 use Saver\Exceptions\CanNotSavedException;
 
 /**
- * Class AmazonS3Saver
+ * Class AmazonS3Saver.
  */
 class AmazonS3Saver extends AbstractSaver implements Saver
 {
@@ -62,9 +63,9 @@ class AmazonS3Saver extends AbstractSaver implements Saver
     /**
      * @param File[] $files
      *
-     * @return File[]
-     *
      * @throws CanNotSavedException
+     *
+     * @return File[]
      */
     public function save($files)
     {
@@ -128,10 +129,10 @@ class AmazonS3Saver extends AbstractSaver implements Saver
         $client = new S3Client(
             [
                 'credentials' => [
-                    'key' => $this->instanceKey,
-                    'secret' => $this->instanceSecret
+                    'key'    => $this->instanceKey,
+                    'secret' => $this->instanceSecret,
                 ],
-                'region' => $this->instanceRegion,
+                'region'  => $this->instanceRegion,
                 'version' => $this->instanceVersion,
             ]
         );
@@ -140,5 +141,4 @@ class AmazonS3Saver extends AbstractSaver implements Saver
 
         return $amazonAdapter;
     }
-
 }

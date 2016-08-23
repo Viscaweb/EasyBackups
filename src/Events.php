@@ -23,5 +23,4 @@ final class Events
      * @var string
      */
     const FILE_TEMPORARY_CREATE = 'file_temporary.create';
-
 }

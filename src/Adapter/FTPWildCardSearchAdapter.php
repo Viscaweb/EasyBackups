@@ -1,4 +1,5 @@
 <?php
+
 namespace Adapter;
 
 use League\Flysystem\Adapter\Ftp;
@@ -22,7 +23,7 @@ class FTPWildCardSearchAdapter extends Ftp
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isAllowSearchingUsingWildCard()
     {
@@ -30,7 +31,7 @@ class FTPWildCardSearchAdapter extends Ftp
     }
 
     /**
-     * @param boolean $allowSearchingUsingWildCard
+     * @param bool $allowSearchingUsingWildCard
      *
      * @return FTPWildCardSearchAdapter
      */
@@ -42,13 +43,13 @@ class FTPWildCardSearchAdapter extends Ftp
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @param string $directory
      */
     protected function listDirectoryContents($directory, $recursive = true)
     {
-        if (!$this->isAllowSearchingUsingWildCard()){
+        if (!$this->isAllowSearchingUsingWildCard()) {
             $directory = str_replace('*', '\\*', $directory);
         }
         $options = $recursive ? '-alnR' : '-aln';

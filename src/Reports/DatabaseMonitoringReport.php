@@ -1,4 +1,5 @@
 <?php
+
 namespace Reports;
 
 use DependencyInjection\Chain\SaverChain;
@@ -64,10 +65,9 @@ class DatabaseMonitoringReport
                 )
             );
 
-            $date->add(new \DateInterval("PT86400S"));
+            $date->add(new \DateInterval('PT86400S'));
         }
 
         return $filesFound;
     }
-
 }

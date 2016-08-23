@@ -2,7 +2,7 @@
 
 namespace Models\Strategies;
 
-use \Dumper\Database\DatabaseSettings;
+use Dumper\Database\DatabaseSettings;
 
 class DatabaseBackupStrategyModel
 {
@@ -178,5 +178,4 @@ class DatabaseBackupStrategyModel
 
         return $this;
     }
-
 }

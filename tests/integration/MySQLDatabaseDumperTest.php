@@ -4,15 +4,14 @@ use Dumper\Database\DatabaseDumper;
 use Dumper\Database\DatabaseSettings;
 use Helper\ShellExecutorHelper;
 use Models\File;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class MySQLDatabaseDumperTest extends PHPUnit_Extensions_Database_TestCase
 {
     /** @var DatabaseDumper */
-    static public $databaseDumper;
+    public static $databaseDumper;
 
     /** @var ShellExecutorHelper */
-    static public $shellExecutor;
+    public static $shellExecutor;
 
     const DB_HOST = '127.0.0.1';
     const DB_USER = 'root';
@@ -106,7 +105,7 @@ class MySQLDatabaseDumperTest extends PHPUnit_Extensions_Database_TestCase
     private function getPdo($dbName)
     {
         $db = new PDO(
-            "mysql:host=".self::DB_HOST.";dbname=$dbName",
+            'mysql:host='.self::DB_HOST.";dbname=$dbName",
             self::DB_USER,
             self::DB_PASS
         );
@@ -132,4 +131,3 @@ class MySQLDatabaseDumperTest extends PHPUnit_Extensions_Database_TestCase
         self::$shellExecutor->execute($command);
     }
 }
-

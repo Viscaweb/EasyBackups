@@ -6,7 +6,6 @@ use Models\File;
 
 interface DatabaseDumper
 {
-
     /**
      * Returns the list of files generated for this dump.
      *
@@ -15,5 +14,4 @@ interface DatabaseDumper
      * @return File[]
      */
     public function dump(DatabaseSettings $settings);
-
 }

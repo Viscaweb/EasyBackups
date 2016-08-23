@@ -1,4 +1,5 @@
 <?php
+
 namespace Models\Reports;
 
 class FileReportModel
@@ -85,5 +86,4 @@ class FileReportModel
 
         return $this;
     }
-
 }

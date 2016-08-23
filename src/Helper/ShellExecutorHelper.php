@@ -1,4 +1,5 @@
 <?php
+
 namespace Helper;
 
 class ShellExecutorHelper
@@ -12,5 +13,4 @@ class ShellExecutorHelper
     {
         return shell_exec($command);
     }
-
 }

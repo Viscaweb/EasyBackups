@@ -1,24 +1,25 @@
 <?php
+
 require_once __DIR__.'/../app/bootstrap.php';
 $container = getContainer();
 
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpKernel\HttpKernel;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
 use Symfony\Component\HttpKernel\EventListener\RouterListener;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Route;
+use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
+use Symfony\Component\Routing\Route;
+use Symfony\Component\Routing\RouteCollection;
 
 $monitoringController = $container->get('controller.monitoring');
 
 $datePattern = '[0-9]+-[0-9]+-[0-9]+';
 $route = new Route(
     '/monitoring/database/{strategyIdentifier}/{requestedFromDate}/{requestedUntilDate}',
-    ['_controller' => [$monitoringController, 'testAction']],
+    ['_controller'       => [$monitoringController, 'testAction']],
     ['requestedFromDate' => $datePattern, 'requestedUntilDate' => $datePattern]
 );
 

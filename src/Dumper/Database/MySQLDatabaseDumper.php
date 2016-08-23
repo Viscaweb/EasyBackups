@@ -7,7 +7,7 @@ use Helper\TemporaryFilesHelper;
 use Models\File;
 
 /**
- * Class MySQLDatabaseDumper
+ * Class MySQLDatabaseDumper.
  */
 class MySQLDatabaseDumper implements DatabaseDumper
 {
