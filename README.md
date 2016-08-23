@@ -2,6 +2,8 @@ EasyBackups (by ViscaWeb)
 ===================
 
 [![Build Status](https://travis-ci.org/Viscaweb/EasyBackups.svg?branch=master)](https://travis-ci.org/Viscaweb/EasyBackups)
+[![StyleCI](https://styleci.io/repos/51551977/shield?style=flat)](https://styleci.io/repos/51551977)
+
 
 EasyBackups a little (and very light-weight) library helping in the process
 of backuping databases, files, etc..
