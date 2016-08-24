@@ -1,6 +1,7 @@
 <?php
 
-final	 class Events{
+final     class Events
+{
     /**
      * Thrown when the backup process begins.
      *
