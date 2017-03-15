@@ -53,6 +53,7 @@ class TemporaryFilesHelper
     public function createTemporaryFile($filename)
     {
         $temporaryFolder = $this->getTemporaryFolder();
+        $this->ensureDirExists($temporaryFolder);
         $temporaryFolder = realpath($temporaryFolder);
 
         $index = 0;
@@ -63,11 +64,7 @@ class TemporaryFilesHelper
                 continue;
             }
 
-            if (!is_dir($temporaryFolder.'/'.$index)) {
-                if (!mkdir($temporaryFolder.'/'.$index)) {
-                    continue;
-                }
-            }
+            $this->ensureDirExists($temporaryFolder.'/'.$index);
 
             break;
         } while (true);
@@ -78,5 +75,23 @@ class TemporaryFilesHelper
         );
 
         return $temporaryFile;
+    }
+
+    /**
+     * @param string $directory
+     *
+     * @return void
+     * @throws \Exception
+     */
+    private function ensureDirExists($directory){
+        if (is_dir($directory)){
+            return;
+        }
+
+        if (mkdir($directory)){
+            return;
+        }
+
+        throw new \Exception("Unable to create the given directory ($directory given).");
     }
 }
