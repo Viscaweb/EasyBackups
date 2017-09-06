@@ -167,7 +167,7 @@ class MySQLDatabaseDumper implements DatabaseDumper
         return array_values($tablesList);
     }
 
-    const MYSQLDUMP_STRUCTURE = 'mysqldump -h %s -u %s -P %d --password=%s %s %s %s > %s';
+    const MYSQLDUMP_STRUCTURE = 'mysqldump --single-transaction -h %s -u %s -P %d --password=%s %s %s %s > %s';
 
     const MYSQL_QUERY_STRUCTURE = 'mysql -h %s -u %s -P %d --password=%s %s -e %s';
 }
