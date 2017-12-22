@@ -58,13 +58,13 @@ class FTPSaver extends AbstractSaver implements Saver
     }
 
     /**
+     * @param string $fileIdentifier
      * @param File[] $files
      *
-     * @throws CanNotSavedException
-     *
      * @return File[]
+     * @throws CanNotSavedException
      */
-    public function save($files)
+    public function save($fileIdentifier, $files)
     {
         $fileSystemAdapter = $this->getAdapter();
         $fileSystem = new Filesystem($fileSystemAdapter);
@@ -76,7 +76,7 @@ class FTPSaver extends AbstractSaver implements Saver
 
             $saveLocation = $this->fileNameResolver->resolve(
                 new \DateTime('now', new \DateTimeZone('UTC')),
-                'database',
+                $file,
                 $file->getExtension()
             );
 

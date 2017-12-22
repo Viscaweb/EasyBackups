@@ -11,13 +11,12 @@ use Saver\Exceptions\CanNotSavedException;
 abstract class AbstractSaver implements Saver
 {
     /**
+     * @param string $fileIdentifier
      * @param File[] $files
-     *
-     * @throws CanNotSavedException
      *
      * @return File[]
      */
-    abstract public function save($files);
+    abstract public function save($fileIdentifier, $files);
 
     /**
      * @return ReadInterface

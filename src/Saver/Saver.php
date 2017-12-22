@@ -9,13 +9,12 @@ use Saver\Exceptions\CanNotSavedException;
 interface Saver
 {
     /**
+     * @param string $fileIdentifier
      * @param File[] $files
-     *
-     * @throws CanNotSavedException
      *
      * @return File[]
      */
-    public function save($files);
+    public function save($fileIdentifier, $files);
 
     /**
      * @param Path      $path
