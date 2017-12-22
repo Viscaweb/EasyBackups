@@ -76,7 +76,7 @@ class DatabaseDumperStrategyProcessor
         $saver = $this->chainSaver->getSaver(
             $configuration->getFileSaverStrategy()
         );
-        $savedFiles = $saver->save($dumpCompressedFiles);
+        $savedFiles = $saver->save($configuration->getIdentifier(), $dumpCompressedFiles);
 
         return $savedFiles;
     }

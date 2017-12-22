@@ -51,7 +51,7 @@ class DatabaseMonitoringReport
         while ($date->getTimestamp() <= $untilDate->getTimestamp()) {
             $filesPattern = $this->fileNameResolver->resolvePatternForDay(
                 $date,
-                'database',
+                $databaseStrategyModel->getIdentifier(),
                 'tar.xz'
             );
             $filesPatternPath = new Path($filesPattern);

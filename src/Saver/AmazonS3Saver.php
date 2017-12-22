@@ -61,24 +61,21 @@ class AmazonS3Saver extends AbstractSaver implements Saver
     }
 
     /**
+     * @param string $fileIdentifier
      * @param File[] $files
      *
-     * @throws CanNotSavedException
-     *
      * @return File[]
+     * @throws CanNotSavedException
      */
-    public function save($files)
+    public function save($fileIdentifier, $files)
     {
         $amazonAdapter = $this->getAdapter();
 
         $savedFiles = [];
-        $i = 0;
         foreach ($files as $file) {
-            $i++;
-
             $filePath = $this->fileNameResolver->resolve(
                 new \DateTime('now', new \DateTimeZone('UTC')),
-                'database',
+                $fileIdentifier,
                 $file->getExtension()
             );
 
