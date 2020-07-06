@@ -1,6 +1,6 @@
 <?php
 
-final class Events
+final     class Events
 {
     /**
      * Thrown when the backup process begins.
@@ -8,6 +8,7 @@ final class Events
      * @var string
      */
     const BACKUP_BEGINS = 'backup.begins';
+
 
     /**
      * Thrown when the backup process ends.
